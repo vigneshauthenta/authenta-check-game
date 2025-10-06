@@ -12,9 +12,6 @@ class AuthentaGame {
             'ai/aiman.jpeg',
             'ai/aimountain.jpg',
             'ai/aipaati.avif',
-            'ai/aitiger.jpeg',
-            'ai/blondhair.webp',
-            'ai/panda.jpeg'
         ];
 
         this.realImages = [
@@ -22,7 +19,6 @@ class AuthentaGame {
             'real/fox.jpg',
             'real/realmountain.avif',
             'real/realpaati.jpg',
-            'real/realtiger.webp'
         ];
 
         this.initializeElements();
@@ -50,6 +46,13 @@ class AuthentaGame {
     setupEventListeners() {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
+
+        this.realIndicator.addEventListener('click', () => {
+            if (!this.isAnimating) this.handleButtonClick('real');
+        });
+        this.aiIndicator.addEventListener('click', () => {
+            if(!this.isAnimating) this.handleButtonClick('ai');
+        });
     }
 
     prepareImages() {
@@ -119,7 +122,7 @@ class AuthentaGame {
 
     createImageCard(imagePath) {
         const card = document.createElement('div');
-        card.className = 'swipe-card bg-white rounded-lg shadow-2xl p-4 max-w-sm mx-auto cursor-grab active:cursor-grabbing';
+        card.className = 'swipe-card bg-white rounded-lg  p-4 max-w-sm mx-auto cursor-grab active:cursor-grabbing';
 
         const img = document.createElement('img');
         img.src = imagePath;
@@ -196,19 +199,10 @@ class AuthentaGame {
 
             if (Math.abs(currentX) > impactThreshold) {
                 if (currentX > 0) {
-
-                    card.style.boxShadow = '0 15px 35px rgba(239, 68, 68, 1.0)';
-                    card.style.borderColor = '#ef4444';
                     this.aiIndicator.classList.add('glow-ai');
                 } else {
-
-                    card.style.boxShadow = '0 15px 35px rgba(34, 197, 94, 1.0)';
-                    card.style.borderColor = '#22c55e';
                     this.realIndicator.classList.add('glow-real');
                 }
-            } else {
-                card.style.boxShadow = '0 25px 50px -12px rgb(0 0 0 / 0.25)';
-                card.style.borderColor = 'transparent';
             }
         };
 
@@ -237,11 +231,9 @@ class AuthentaGame {
                 const classification = currentX > 0 ? 'ai' : 'real';
                 this.swipeComplete(card, classification);
             } else {
-
+                // Snap back with smooth animation - no shadow changes
                 card.style.transform = 'translateX(0px) rotate(0deg) scale(1)';
                 card.style.opacity = '1';
-                card.style.boxShadow = '0 25px 50px -12px rgb(0 0 0 / 0.25)';
-                card.style.borderColor = 'transparent';
             }
         };
 
@@ -314,26 +306,34 @@ class AuthentaGame {
 
         const currentCard = document.querySelector('.swipe-card');
         if (currentCard) {
-
             this.isAnimating = true;
 
-
-            currentCard.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out';
+            // Add glow effect to indicator
             if (classification === 'ai') {
-                currentCard.style.transform = 'translateX(100px) rotate(15deg) scale(0.9)';
-                this.aiIndicator.classList.add('glow-ai bg-opacity-100');
+                this.aiIndicator.classList.add('glow-ai');
             } else {
-                currentCard.style.transform = 'translateX(-100px) rotate(-15deg) scale(0.9)';
-                this.realIndicator.classList.add('glow-real bg-opacity-100');
+                this.realIndicator.classList.add('glow-real');
             }
-            currentCard.style.opacity = '0.3';
 
+            // Animate card completely off screen
+            currentCard.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out';
+            
+            if (classification === 'ai') {
+                currentCard.style.transform = 'translateX(120vw) rotate(25deg) scale(0.8)';
+            } else {
+                currentCard.style.transform = 'translateX(-120vw) rotate(-25deg) scale(0.8)';
+            }
+            currentCard.style.opacity = '0';
+
+            // Wait for animation to complete, then proceed to next image
             setTimeout(() => {
-                this.classifyImage(classification);
-
+                // Clean up glow effects
                 this.realIndicator.classList.remove('glow-real');
                 this.aiIndicator.classList.remove('glow-ai');
-            }, 400);
+                
+                // Process the classification and move to next image
+                this.classifyImage(classification);
+            }, 600);
         }
     }
 

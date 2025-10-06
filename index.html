@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .glass-nav {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .swipe-card {
@@ -60,12 +60,12 @@
         }
     </style>
 </head>
-<body class=" flex flex-col justify-center items-center  bg-gradient-to-br from-purple-900 via-purple-700 to-purple-400 min-h-[95vh] overflow-x-hidden">
+<body class=" flex flex-col justify-center items-center bg-white min-h-screen overflow-x-hidden">
     <!-- Navigation -->
     <nav class="glass-nav rounded-full mx-auto mt-4  px-4 py- flex items-center justify-center space-x-4 max-w-fit">
-        <img src="public/authenta.png" alt="Authenta Logo" class=" h-16 py-2">
-        <div class="w-px h-8 bg-white bg-opacity-30"></div>
-        <a href="https://authenta.ai" target="_blank" class="text-white hover:text-blue-300 transition-colors">
+        <img src="public/authenta_gradient.png" alt="Authenta Logo" class=" h-16 py-2">
+        <div class="w-px h-8 bg-gray-400 bg-opacity-50"></div>
+        <a href="https://authenta.ai" target="_blank" class="text-gray-700 hover:text-purple-600 transition-colors">
             <i class="fas fa-external-link-alt text-2xl"></i>
         </a>
     </nav>
@@ -74,20 +74,20 @@
     <div id="app" class="container mx-auto px-4 py-8 overflow-x-hidden">
         <!-- Start Screen -->
         <div id="startScreen" class="text-center">
-            <h1 class="text-5xl font-bold text-white mb-6">Can you tell AI from Real?</h1>
-            <p class="text-xl text-gray-300 mb-8">Swipe left for REAL images, swipe right for AI images</p>
+            <h1 class="text-5xl font-bold text-gray-800 mb-6">Can you tell AI from Real?</h1>
+            <p class="text-xl text-gray-600 mb-8">Swipe left for REAL images, swipe right for AI images</p>
            
-            <button id="startBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-white border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
+            <button id="startBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
                 Start Now   
             </button>
         </div>
  
         <div id="gameScreen" class="hidden"> 
             <div class="mb-6 flex flex-col items-center">
-                <div class="bg-gray-700 rounded-full h-2 mb-2 w-full max-w-md">
-                    <div id="progressBar" class="bg-purple-200 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                <div class="bg-gray-200 rounded-full h-2 mb-2 w-full max-w-md">
+                    <div id="progressBar" class="bg-purple-700 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <p class="text-white text-center">
+                <p class="text-gray-800 text-center">
                     <span id="currentImage">1</span> / <span id="totalImages">12</span>
                 </p>
             </div>
@@ -102,17 +102,17 @@
             <!-- Swipe Indicators -->
             <div class="flex justify-center items-center mb-6 px-4 md:px-8 space-x-8 md:space-x-16">
                 <div id="realIndicator" class="text-center flex items-center space-x-1 md:space-x-2 transition-all duration-300 cursor-pointer hover:scale-110 active:scale-95" onclick="game.handleButtonClick('real')">
-                    <div class="bg-green-500 bg-opacity-60 hover:bg-opacity-80 rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg">
+                    <div class="bg-green-500 bg-opacity-60 hover:bg-opacity-80 rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center transition-all duration-300">
                         <i class="fas fa-arrow-left text-white text-lg md:text-xl"></i>
                     </div>
-                    <p class="text-white text-lg md:text-xl font-bold">REAL</p>
+                    <p class="text-gray-800 text-lg md:text-xl font-bold">REAL</p>
                 </div>
                 <div class="text-center min-w-0 flex-shrink-0">
-                    <p class="text-white text-sm md:text-lg font-semibold whitespace-nowrap">Swipe to classify</p>
+                    <p class="text-gray-800 text-sm md:text-lg font-semibold whitespace-nowrap">Swipe to classify</p>
                 </div>
                 <div id="aiIndicator" class="text-center flex items-center space-x-1 md:space-x-2 transition-all duration-300 cursor-pointer hover:scale-110 active:scale-95" onclick="game.handleButtonClick('ai')">
-                    <p class="text-white text-lg md:text-xl font-bold">AI</p>
-                    <div class="bg-red-500 bg-opacity-60 hover:bg-opacity-80 rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg">
+                    <p class="text-gray-800 text-lg md:text-xl font-bold">AI</p>
+                    <div class="bg-red-500 bg-opacity-60 hover:bg-opacity-80 rounded-full w-12 h-12 md:w-14 md:h-14 flex items-center justify-center transition-all duration-300">
                         <i class="fas fa-arrow-right text-white text-lg md:text-xl"></i>
                     </div>
                 </div>
@@ -121,13 +121,13 @@
 
         <!-- End Screen -->
         <div id="endScreen" class="hidden text-center">
-            <h2 class="text-4xl font-bold text-white mb-6">Game Complete!</h2>
-            <div class="bg-white bg-opacity-10 rounded-lg p-8 mb-6 max-w-md mx-auto">
-                <div class="text-6xl font-bold text-white mb-4" id="finalScore">0/12</div>
-                <div class="text-xl text-gray-300 mb-4" id="scorePercentage">0%</div>
-                <div class="text-lg text-gray-400" id="scoreMessage">Great job!</div>
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">Game Complete!</h2>
+            <div class="bg-gray-100 bg-opacity-80 rounded-lg p-8 mb-6 max-w-md mx-auto border border-gray-200">
+                <div class="text-6xl font-bold text-gray-800 mb-4" id="finalScore">0/12</div>
+                <div class="text-xl text-gray-600 mb-4" id="scorePercentage">0%</div>
+                <div class="text-lg text-gray-500" id="scoreMessage">Great job!</div>
             </div>
-            <button id="playAgainBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-white border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
+            <button id="playAgainBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
                 Play Again
             </button>
         </div>
