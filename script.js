@@ -6,24 +6,9 @@ class AuthentaGame {
         this.gameStarted = false;
         this.isAnimating = false;
 
-
-        this.aiImages = [
-            'ai/aigirl.jpg',
-            'ai/aiman.jpeg',
-            'ai/aimountain.jpg',
-            'ai/aipaati.avif',
-        ];
-
-        this.realImages = [
-            'real/elepa.jpg',
-            'real/fox.jpg',
-            'real/realmountain.avif',
-            'real/realpaati.jpg',
-        ];
-
         this.initializeElements();
         this.setupEventListeners();
-        this.prepareImages();
+        this.loadImagesFromJSON();
     }
 
     initializeElements() {
@@ -43,6 +28,32 @@ class AuthentaGame {
         this.aiIndicator = document.getElementById('aiIndicator');
     }
 
+    
+    async loadImagesFromJSON() {
+        try { 
+            const [fakeRes, realRes] = await Promise.all([
+                fetch('fake.json'),
+                fetch('real.json')
+            ]);
+
+            if (!fakeRes.ok || !realRes.ok) throw new Error('Failed to load image JSON files');
+
+            // Parse JSON
+            const [fakeData, realData] = await Promise.all([
+                fakeRes.json(),
+                realRes.json()
+            ]);
+
+            this.fakeImages = fakeData;
+            this.realImages = realData;
+
+            console.log("✅ Images loaded successfully");
+            this.prepareImages();
+        } catch (err) {
+            console.error("❌ Error loading images:", err);
+        }
+    }
+
     setupEventListeners() {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
@@ -58,12 +69,12 @@ class AuthentaGame {
     prepareImages() {
 
         const allImages = [
-            ...this.aiImages.map(path => ({ path, type: 'ai' })),
+            ...this.fakeImages.map(path => ({ path, type: 'ai' })),
             ...this.realImages.map(path => ({ path, type: 'real' }))
         ];
 
 
-        this.images = this.shuffleArray(allImages);
+        this.images = this.shuffleArray(allImages).slice(0, 10);
         this.totalImagesEl.textContent = this.images.length;
 
 
