@@ -67,16 +67,18 @@ class AuthentaGame {
     }
 
     prepareImages() {
+        // Shuffle fake and real images independently
+        const shuffledFake = this.shuffleArray(this.fakeImages);
+        const shuffledReal = this.shuffleArray(this.realImages);
 
         const allImages = [
-            ...this.fakeImages.map(path => ({ path, type: 'ai' })),
-            ...this.realImages.map(path => ({ path, type: 'real' }))
+            ...shuffledFake.map(path => ({ path, type: 'ai' })),
+            ...shuffledReal.map(path => ({ path, type: 'real' }))
         ];
 
-
+        // Shuffle the combined list and take the first 10
         this.images = this.shuffleArray(allImages).slice(0, 10);
         this.totalImagesEl.textContent = this.images.length;
-
 
         this.preloadImages();
     }
