@@ -17,6 +17,7 @@ class AuthentaGame {
         this.endScreen = document.getElementById('endScreen');
         this.startBtn = document.getElementById('startBtn');
         this.playAgainBtn = document.getElementById('playAgainBtn');
+        this.homeBtn = document.getElementById('homeBtn');
         this.imageContainer = document.getElementById('imageContainer');
         this.progressBar = document.getElementById('progressBar');
         this.currentImageEl = document.getElementById('currentImage');
@@ -24,6 +25,7 @@ class AuthentaGame {
         this.finalScore = document.getElementById('finalScore');
         this.scorePercentage = document.getElementById('scorePercentage');
         this.scoreMessage = document.getElementById('scoreMessage');
+        this.mainNav = document.getElementById('mainNav');
         this.realIndicator = document.getElementById('realIndicator');
         this.aiIndicator = document.getElementById('aiIndicator');
     }
@@ -57,6 +59,7 @@ class AuthentaGame {
     setupEventListeners() {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
+        this.homeBtn.addEventListener('click', () => this.goToHome());
 
         this.realIndicator.addEventListener('click', () => {
             if (!this.isAnimating) this.handleButtonClick('real');
@@ -107,6 +110,7 @@ class AuthentaGame {
         this.startScreen.classList.add('hidden');
         this.gameScreen.classList.remove('hidden');
         this.endScreen.classList.add('hidden');
+        this.mainNav.classList.add('hidden');
 
         this.displayCurrentImage();
     }
@@ -370,6 +374,7 @@ class AuthentaGame {
     endGame() {
         this.gameScreen.classList.add('hidden');
         this.endScreen.classList.remove('hidden');
+        this.mainNav.classList.remove('hidden');
 
         const totalImages = this.images.length;
         const percentage = Math.round((this.score / totalImages) * 100);
@@ -397,6 +402,12 @@ class AuthentaGame {
     resetGame() {
         this.prepareImages();
         this.startGame();
+    }
+
+    goToHome() {
+        this.endScreen.classList.add('hidden');
+        this.startScreen.classList.remove('hidden');
+        this.mainNav.classList.remove('hidden');
     }
 }
 
