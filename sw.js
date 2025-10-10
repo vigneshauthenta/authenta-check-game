@@ -1,4 +1,4 @@
-const CACHE_NAME = 'authenta-check-v2';
+const CACHE_NAME = 'authenta-check';
 // Add the core files of your app shell to this list.
 const urlsToCache = [
     '/',
