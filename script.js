@@ -26,8 +26,11 @@ class AuthentaGame {
         this.scorePercentage = document.getElementById('scorePercentage');
         this.scoreMessage = document.getElementById('scoreMessage');
         this.mainNav = document.getElementById('mainNav');
-        this.realIndicator = document.getElementById('realIndicator');
-        this.aiIndicator = document.getElementById('aiIndicator');
+        this.realBtn = document.getElementById('realBtn');
+        this.aiBtn = document.getElementById('aiBtn');
+        this.feedbackIndicator = document.getElementById('feedbackIndicator');
+        this.feedbackIcon = document.getElementById('feedbackIcon');
+        this.feedbackText = document.getElementById('feedbackText');
     }
 
     
@@ -60,13 +63,8 @@ class AuthentaGame {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
         this.homeBtn.addEventListener('click', () => this.goToHome());
-
-        this.realIndicator.addEventListener('click', () => {
-            if (!this.isAnimating) this.handleButtonClick('real');
-        });
-        this.aiIndicator.addEventListener('click', () => {
-            if(!this.isAnimating) this.handleButtonClick('ai');
-        });
+        this.realBtn.addEventListener('click', () => this.classifyImage('real'));
+        this.aiBtn.addEventListener('click', () => this.classifyImage('ai'));
     }
 
     prepareImages() {
@@ -132,19 +130,16 @@ class AuthentaGame {
         const imageCard = this.createImageCard(currentImage.path);
         this.imageContainer.innerHTML = '';
         this.imageContainer.appendChild(imageCard);
-
-
-        this.addSwipeListeners(imageCard);
     }
 
     createImageCard(imagePath) {
         const card = document.createElement('div');
-        card.className = 'swipe-card bg-white rounded-lg  p-4 max-w-sm mx-auto cursor-grab active:cursor-grabbing';
+        card.className = 'bg-white rounded-lg p-4 max-w-full mx-auto';
 
         const img = document.createElement('img');
         img.src = imagePath;
         img.alt = 'Image to classify';
-        img.className = 'w-full h-80 object-cover rounded-lg';
+        img.className = 'w-full h-full object-contain rounded-lg';
         img.onerror = () => {
             img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100%25" height="100%25" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
         };
@@ -153,222 +148,38 @@ class AuthentaGame {
         return card;
     }
 
-    addSwipeListeners(card) {
-        if (this.isAnimating) return;
-
-        let startX = 0;
-        let startY = 0;
-        let currentX = 0;
-        let isDragging = false;
-        let startTime = 0;
-
-
-        const getEventPos = (e) => {
-            return {
-                x: e.touches ? e.touches[0].clientX : e.clientX,
-                y: e.touches ? e.touches[0].clientY : e.clientY
-            };
-        };
-
-
-        const handleStart = (e) => {
-            if (this.isAnimating) return;
-            const pos = getEventPos(e);
-            startX = pos.x;
-            startY = pos.y;
-            startTime = Date.now();
-            isDragging = true;
-            card.style.cursor = 'grabbing';
-            card.style.transition = 'none';
-            e.preventDefault();
-        };
-
-
-        const handleMove = (e) => {
-            if (!isDragging || this.isAnimating) return;
-            e.preventDefault();
-
-            const pos = getEventPos(e);
-            let rawCurrentX = pos.x - startX;
-            const currentY = pos.y - startY;
-
-
-            if (Math.abs(rawCurrentX) < Math.abs(currentY)) return;
-
-
-            const maxMovement = 120;
-            currentX = Math.max(-maxMovement, Math.min(maxMovement, rawCurrentX));
-
-
-            const impactThreshold = 40;
-
-            const rotation = currentX * 0.06;
-            const opacity = Math.max(0.7, 1 - Math.abs(currentX) / 200);
-            const scale = Math.max(0.98, 1 - Math.abs(currentX) / 800);
-
-            card.style.transform = `translateX(${currentX}px) rotate(${rotation}deg) scale(${scale})`;
-            card.style.opacity = opacity;
-
-
-            this.realIndicator.classList.remove('glow-real');
-            this.aiIndicator.classList.remove('glow-ai');
-
-
-            if (Math.abs(currentX) > impactThreshold) {
-                if (currentX > 0) {
-                    this.aiIndicator.classList.add('glow-ai');
-                } else {
-                    this.realIndicator.classList.add('glow-real');
-                }
-            }
-        };
-
-
-        const handleEnd = (e) => {
-            if (!isDragging || this.isAnimating) return;
-            isDragging = false;
-            card.style.cursor = 'grab';
-            card.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out, box-shadow 0.4s ease-out';
-
-
-            this.realIndicator.classList.remove('glow-real');
-            this.aiIndicator.classList.remove('glow-ai');
-
-            const endTime = Date.now();
-            const timeDiff = endTime - startTime;
-            const velocity = Math.abs(currentX) / timeDiff;
-
-
-            const distanceThreshold = 60;
-            const velocityThreshold = 0.25;
-
-            const isSwipe = Math.abs(currentX) > distanceThreshold || velocity > velocityThreshold;
-
-            if (isSwipe && Math.abs(currentX) > 30) {
-                const classification = currentX > 0 ? 'ai' : 'real';
-                this.swipeComplete(card, classification);
-            } else {
-                // Snap back with smooth animation - no shadow changes
-                card.style.transform = 'translateX(0px) rotate(0deg) scale(1)';
-                card.style.opacity = '1';
-            }
-        };
-
-
-        card.addEventListener('mousedown', handleStart);
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('mouseup', handleEnd);
-
-
-        card.addEventListener('touchstart', handleStart, { passive: false });
-        document.addEventListener('touchmove', handleMove, { passive: false });
-        document.addEventListener('touchend', handleEnd);
-
-
-        card.addEventListener('keydown', (e) => {
-            if (this.isAnimating) return;
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                this.swipeComplete(card, 'real');
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                this.swipeComplete(card, 'ai');
-            }
-        });
-
-
-        card.setAttribute('tabindex', '0');
-
-
-        card.addEventListener('contextmenu', (e) => e.preventDefault());
-        card.addEventListener('selectstart', (e) => e.preventDefault());
-
-
-        card._cleanup = () => {
-            document.removeEventListener('mousemove', handleMove);
-            document.removeEventListener('mouseup', handleEnd);
-            document.removeEventListener('touchmove', handleMove);
-            document.removeEventListener('touchend', handleEnd);
-        };
-    }
-
-    swipeComplete(card, classification) {
+    classifyImage(classification) {
         if (this.isAnimating) return;
         this.isAnimating = true;
 
-
-        if (card._cleanup) {
-            card._cleanup();
-        }
-
-
-        const direction = classification === 'ai' ? 'right' : 'left';
-        card.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out';
-
-        if (direction === 'right') {
-            card.style.transform = 'translateX(120vw) rotate(25deg) scale(0.8)';
-        } else {
-            card.style.transform = 'translateX(-120vw) rotate(-25deg) scale(0.8)';
-        }
-        card.style.opacity = '0';
-
-
-        setTimeout(() => {
-            this.classifyImage(classification);
-        }, 600);
-    }
-
-    handleButtonClick(classification) {
-        if (this.isAnimating) return;
-
-        const currentCard = document.querySelector('.swipe-card');
-        if (currentCard) {
-            this.isAnimating = true;
-
-            // Add glow effect to indicator
-            if (classification === 'ai') {
-                this.aiIndicator.classList.add('glow-ai');
-            } else {
-                this.realIndicator.classList.add('glow-real');
-            }
-
-            // Animate card completely off screen
-            currentCard.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease-out';
-            
-            if (classification === 'ai') {
-                currentCard.style.transform = 'translateX(120vw) rotate(25deg) scale(0.8)';
-            } else {
-                currentCard.style.transform = 'translateX(-120vw) rotate(-25deg) scale(0.8)';
-            }
-            currentCard.style.opacity = '0';
-
-            // Wait for animation to complete, then proceed to next image
-            setTimeout(() => {
-                // Clean up glow effects
-                this.realIndicator.classList.remove('glow-real');
-                this.aiIndicator.classList.remove('glow-ai');
-                
-                // Process the classification and move to next image
-                this.classifyImage(classification);
-            }, 600);
-        }
-    }
-
-    classifyImage(classification) {
         const currentImage = this.images[this.currentImageIndex];
         const isCorrect = currentImage.type === classification;
 
         if (isCorrect) {
             this.score++;
+            this.showFeedback(true);
+        } else {
+            this.showFeedback(false);
         }
 
-        this.currentImageIndex++;
-        this.isAnimating = false;
-
-
         setTimeout(() => {
+            this.currentImageIndex++;
+            this.isAnimating = false;
+            this.hideFeedback();
             this.displayCurrentImage();
-        }, 100);
+        }, 1500); // Wait 1.5 seconds before showing the next image
+    }
+
+    showFeedback(isCorrect) {
+        this.feedbackIndicator.classList.remove('hidden', 'feedback-correct', 'feedback-wrong');
+        this.feedbackIcon.className = isCorrect ? 'fas fa-check-circle text-6xl mb-2' : 'fas fa-times-circle text-6xl mb-2';
+        this.feedbackText.textContent = isCorrect ? 'Correct!' : 'Wrong!';
+        this.feedbackIndicator.classList.add(isCorrect ? 'feedback-correct' : 'feedback-wrong');
+        this.feedbackIndicator.style.display = 'flex';
+    }
+
+    hideFeedback() {
+        this.feedbackIndicator.style.display = 'none';
     }
 
     endGame() {
@@ -381,22 +192,6 @@ class AuthentaGame {
 
         this.finalScore.textContent = `${this.score}/${totalImages}`;
         this.scorePercentage.textContent = `${percentage}%`;
-
-
-        let message = '';
-        if (percentage >= 90) {
-            message = 'Outstanding! You\'re an AI detection expert! 🏆';
-        } else if (percentage >= 75) {
-            message = 'Excellent work! You have a great eye! 👏';
-        } else if (percentage >= 60) {
-            message = 'Good job! You\'re getting better at this! 👍';
-        } else if (percentage >= 40) {
-            message = 'Not bad! Keep practicing! 💪';
-        } else {
-            message = 'Room for improvement! Try again! 🎯';
-        }
-
-        this.scoreMessage.textContent = message;
     }
 
     resetGame() {

@@ -1,0 +1,21 @@
+{
+    "name": "Authenta Check",
+    "short_name": "Authenta",
+    "description": "A game to test if you can distinguish AI-generated images from real ones.",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#8b5cf6",
+    "icons": [
+        {
+            "src": "public/favicon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "public/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
