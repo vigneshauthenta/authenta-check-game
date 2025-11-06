@@ -37,8 +37,8 @@ class AuthentaGame {
     async loadImagesFromJSON() {
         try { 
             const [fakeRes, realRes] = await Promise.all([
-                fetch('fake.json'),
-                fetch('real.json')
+                fetch('fake_filtered.json'),
+                fetch('real_filtered.json')
             ]);
 
             if (!fakeRes.ok || !realRes.ok) throw new Error('Failed to load image JSON files');

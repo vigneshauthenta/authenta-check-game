@@ -3,7 +3,7 @@ import os
 import json
 
 # Get all image files in /real/ directory
-image_files = glob.glob("./fake/*")
+image_files = glob.glob("./real/*")
 
 # Filter only image files (common extensions)
 valid_extensions = (".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp")
