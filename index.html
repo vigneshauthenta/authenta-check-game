@@ -63,113 +63,180 @@
             color: white;
         }
 
-        /* Splash Screen Styles */
-        #splashScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .showcase-image.size-small {
+            width: 75px;
+            height: 75px;
+        }
+
+        .showcase-image.size-medium {
+            width: 95px;
+            height: 95px;
+        }
+
+        .showcase-image.size-large {
+            width: 115px;
+            height: 115px;
+        }
+
+        .showcase-image.size-xlarge {
+            width: 135px;
+            height: 135px;
+        }
+
+        .showcase-image:hover {
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .showcase-image:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes wiggle-idle {
+            0%, 100% {
+                transform: rotate(0deg) translateY(0);
+            }
+            25% {
+                transform: rotate(1deg) translateY(-2px);
+            }
+            50% {
+                transform: rotate(0deg) translateY(0);
+            }
+            75% {
+                transform: rotate(-1deg) translateY(-2px);
+            }
+        }
+
+        @keyframes wiggle-hover {
+            0%, 100% {
+                transform: rotate(0deg) scale(1.05);
+            }
+            10% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+            20% {
+                transform: rotate(5deg) scale(1.08);
+            }
+            30% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+            40% {
+                transform: rotate(5deg) scale(1.08);
+            }
+            50% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+            60% {
+                transform: rotate(5deg) scale(1.08);
+            }
+            70% {
+                transform: rotate(-3deg) scale(1.06);
+            }
+            80% {
+                transform: rotate(3deg) scale(1.06);
+            }
+            90% {
+                transform: rotate(-1deg) scale(1.05);
+            }
+        }
+
+        .showcase-grid {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            flex-wrap: wrap;
+            gap: 0;
+            max-width: 100%;
+            margin: 0 auto 3rem;
+            padding: 1rem 2rem;
+            height: auto;
             overflow: hidden;
+            align-content: flex-start;
+            justify-content: center;
+            margin-left: -15px;
         }
 
-        #splashBg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-        }
-
-        #splashContent {
+        .showcase-image {
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+            cursor: pointer;
+            animation: wiggle-idle 3s ease-in-out infinite;
+            flex-shrink: 0;
+            margin: -12px;
             position: relative;
-            z-index: 10;
-            text-align: center;
+            z-index: 1;
         }
 
-        #splashIcon {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
+        .showcase-image:hover {
+            /* animation: wiggle-hover 0.5s ease-in-out infinite; */
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            z-index: 100;
         }
 
-        /* Phase 1: Icon centered (0-2s) */
-        .splash-phase-1 #splashIcon {
-            animation: none;
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Phase 2: Expanding background transition (2-3s) */
-        .splash-phase-2 #splashBg {
-            animation: expandBg 1s ease-out forwards;
-        }
-
-        .splash-phase-2 #splashIcon {
-            animation: none;
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        @keyframes expandBg {
-            from {
-                background-color: white;
-                clip-path: circle(0% at 50% 50%);
+        @media (max-width: 640px) {
+            .showcase-image.size-small {
+                width: 55px;
+                height: 55px;
             }
-            to {
-                background-color: #1B0341;
-                clip-path: circle(150% at 50% 50%);
-            }
-        }
 
-        /* Phase 3: Fade out splash (after 3s) */
-        .splash-fade-out {
-            animation: splashFadeOut 0.5s ease-out forwards;
-        }
-
-        @keyframes splashFadeOut {
-            from {
-                opacity: 1;
-                visibility: visible;
+            .showcase-image.size-medium {
+                width: 70px;
+                height: 70px;
             }
-            to {
-                opacity: 0;
-                visibility: hidden;
+
+            .showcase-image.size-large {
+                width: 85px;
+                height: 85px;
+            }
+
+            .showcase-image.size-xlarge {
+                width: 100px;
+                height: 100px;
+            }
+
+            .showcase-grid {
+                gap: 0;
+                padding: 0.5rem 1rem;
+                margin-bottom: 2rem;
+                margin-left: -12px;
+            }
+            
+            .showcase-image {
+                margin: -10px;
             }
         }
-    </style>
+        /* Staggered animation delays */
+        .showcase-image:nth-child(1) { animation-delay: 0s; }
+        .showcase-image:nth-child(2) { animation-delay: 0.1s; }
+        .showcase-image:nth-child(3) { animation-delay: 0.2s; }
+        .showcase-image:nth-child(4) { animation-delay: 0.3s; }
+        .showcase-image:nth-child(5) { animation-delay: 0.4s; }
+        .showcase-image:nth-child(6) { animation-delay: 0.5s; }
+        .showcase-image:nth-child(7) { animation-delay: 0.6s; }
+        .showcase-image:nth-child(8) { animation-delay: 0.7s; }
+        .showcase-image:nth-child(9) { animation-delay: 0.8s; }
+        .showcase-image:nth-child(10) { animation-delay: 0.9s; }
+        .showcase-image:nth-child(11) { animation-delay: 1s; }    </style>
 </head>
 
-<body class=" flex flex-col justify-center items-center bg-white min-h-screen overflow-x-hidden">
-    <!-- Splash Screen -->
-    <div id="splashScreen" class="splash-phase-1">
-        <div id="splashBg"></div>
-        <div id="splashContent">
-            <img id="splashIcon" src="./public/favicon.png" alt="Authenta">
-        </div>
-    </div>
+<body class="bg-white min-h-screen overflow-x-hidden">
 
-    <!-- Navigation -->
-    <nav id="mainNav"
-        class="glass-nav rounded-full mx-auto mt-4 px-4 flex items-center justify-center space-x-4 max-w-fit">
-        <img src="public/authenta_gradient.png" alt="Authenta Logo" class="h-16 lg:h-24 py-2">
-        <div class="w-px h-8 bg-gray-400 bg-opacity-50"></div>
-        <a href="https://authenta.ai" target="_blank" class="text-gray-700 hover:text-purple-600 transition-colors">
-            <i class="fas fa-external-link-alt text-2xl"></i>
-        </a>
-    </nav>
 
     <!-- Main Content -->
-    <div id="app" class="container mx-auto px-4 py-8 overflow-x-hidden">
+    <div id="app" class="container mx-auto overflow-x-hidden">
         <!-- Start Screen -->
         <div id="startScreen" class="text-center">
-            <h1 class="text-5xl font-bold text-gray-800 mb-6 sm:text-[5rem]">Can you tell AI from Real?</h1>
+            <div id="showcaseGrid" class="showcase-grid">
+                <!-- Images will be loaded here by JavaScript -->
+            </div>
+
+            <h1 class="text-5xl font-bold text-gray-800 mb-6 sm:text-[5rem] mt-8">Can you tell AI from Real?</h1>
             <p class="text-xl text-gray-600 mb-8 sm:text-[1.5rem]">Classify the images as Real or AI-generated.</p>
+
+            <!-- Showcase Image Grid -->
+
 
             <button id="startBtn"
                 class="bg-purple-600 md: hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
