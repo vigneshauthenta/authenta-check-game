@@ -9,6 +9,7 @@ class AuthentaGame {
         this.imageSets = []; // Store all 10 sets
 
         this.initializeElements();
+        if (this.startBtn) this.startBtn.disabled = true;
         this.setupEventListeners();
         this.loadImageSets();
         this.loadShowcaseImages();
@@ -37,7 +38,7 @@ class AuthentaGame {
         this.homeIconBtn = document.getElementById('homeIconBtn');
     }
 
-    
+
     async loadImageSets() {
         try {
             const response = await fetch('image-sets.json');
@@ -49,13 +50,12 @@ class AuthentaGame {
             // Load current set index from localStorage or start at 0
             const savedSetIndex = localStorage.getItem('currentSetIndex');
             this.currentSetIndex = savedSetIndex ? parseInt(savedSetIndex) : 0;
-
-            console.log("✅ Image sets loaded successfully");
-            console.log(`� localStorage value: ${savedSetIndex}`);
-            console.log(`📍 Using Set ${this.currentSetIndex + 1} (Index: ${this.currentSetIndex})`);
-            console.log(`📦 Total sets available: ${this.imageSets.length}`);
-            
             this.prepareImages();
+
+            // Enable start button if images are loaded
+            if (this.images && this.images.length > 0 && this.startBtn) {
+                this.startBtn.disabled = false;
+            }
         } catch (err) {
             console.error("❌ Error loading image sets:", err);
         }
@@ -80,20 +80,14 @@ class AuthentaGame {
 
         // Get the current set (cycles through 1-10)
         const currentSet = this.imageSets[this.currentSetIndex];
-        
+
         if (!currentSet) {
             console.error(`Set at index ${this.currentSetIndex} not found`);
             return;
         }
-        
-        // Shuffle the images randomly each time this set is played
-        // This ensures same set has different order on each playthrough
+
         this.images = this.shuffleArray([...currentSet.images]);
-        
-        console.log(`🎮 Playing Set ${currentSet.id} (Index: ${this.currentSetIndex})`);
-        console.log(`🔀 ${this.images.length} images shuffled in random order`);
-        console.log(`📋 Set contains:`, this.images.map(img => img.path.split('/').pop()).join(', '));
-        
+
         if (this.totalImagesEl) {
             this.totalImagesEl.textContent = this.images.length;
         }
@@ -112,7 +106,7 @@ class AuthentaGame {
     preloadImages() {
         this.images.forEach(imageData => {
             const img = new Image();
-            img.src = imageData.path;
+            img.src = `data/${imageData.path}`;
         });
     }
 
@@ -153,7 +147,7 @@ class AuthentaGame {
         }
 
         const currentImage = this.images[this.currentImageIndex];
-        
+
         if (!currentImage) {
             console.error(`No image data at index ${this.currentImageIndex}`);
             return;
@@ -184,16 +178,16 @@ class AuthentaGame {
         img.src = imagePath;
         img.alt = 'Image to classify';
         img.className = 'w-full h-full object-contain rounded-lg';
-        
+
         // Add loading state
         img.style.opacity = '0';
         img.style.transition = 'opacity 0.3s ease-in';
-        
+
         img.onload = () => {
             console.log(`✅ Image loaded: ${imagePath}`);
             img.style.opacity = '1';
         };
-        
+
         img.onerror = (error) => {
             console.error(`❌ Failed to load image: ${imagePath}`, error);
             img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100%25" height="100%25" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
@@ -209,7 +203,16 @@ class AuthentaGame {
         this.isAnimating = true;
 
         const currentImage = this.images[this.currentImageIndex];
-        const isCorrect = currentImage.type === classification;
+        // Determine correct label based on set-1 (real) or set-2 (fake)
+        let correctLabel;
+        if (currentImage.path.startsWith('set-1/')) {
+            correctLabel = 'real';
+        } else if (currentImage.path.startsWith('set-2/')) {
+            correctLabel = 'ai';
+        } else {
+            correctLabel = currentImage.type; // fallback
+        }
+        const isCorrect = correctLabel === classification;
 
         if (isCorrect) {
             this.score++;
@@ -240,7 +243,7 @@ class AuthentaGame {
 
     endGame() {
         console.log('🏁 Game ending...');
-        
+
         if (this.gameScreen) this.gameScreen.classList.add('hidden');
         if (this.endScreen) this.endScreen.classList.remove('hidden');
         if (this.mainNav) this.mainNav.classList.remove('hidden');
@@ -252,7 +255,7 @@ class AuthentaGame {
         if (this.scorePercentage) this.scorePercentage.textContent = `${percentage}%`;
 
         console.log(`📊 Final Score: ${this.score}/${totalImages} (${percentage}%)`);
-        
+
         // Move to next set for next game
         this.moveToNextSet();
     }
@@ -261,14 +264,14 @@ class AuthentaGame {
         // Increment set index and loop back to 0 after set 10
         const previousSet = this.currentSetIndex + 1;
         this.currentSetIndex = (this.currentSetIndex + 1) % 10;
-        
+
         // Save to localStorage
         localStorage.setItem('currentSetIndex', this.currentSetIndex.toString());
-        
+
         console.log(`✅ Set Changed: Set ${previousSet} → Set ${this.currentSetIndex + 1}`);
         console.log(`💾 Saved to localStorage: ${this.currentSetIndex}`);
         console.log(`📌 Next game will use Set ${this.currentSetIndex + 1}`);
-        
+
         // Verify it was saved
         const verified = localStorage.getItem('currentSetIndex');
         console.log(`✔️ Verification - localStorage now contains: ${verified}`);
@@ -276,10 +279,10 @@ class AuthentaGame {
 
     resetGame() {
         console.log(`🔄 Resetting game with Set ${this.currentSetIndex + 1}`);
-        
+
         // Prepare the new set (currentSetIndex was already incremented in endGame)
         this.prepareImages();
-        
+
         // Hide end screen and start new game
         this.endScreen.classList.add('hidden');
         this.startGame();
@@ -287,10 +290,10 @@ class AuthentaGame {
 
     goToHome() {
         console.log(`🏠 Going home - Set ${this.currentSetIndex + 1} ready for next game`);
-        
+
         // Prepare images for next game (uses current set index)
         this.prepareImages();
-        
+
         this.endScreen.classList.add('hidden');
         this.startScreen.classList.remove('hidden');
         if (this.mainNav) this.mainNav.classList.remove('hidden');
@@ -298,10 +301,10 @@ class AuthentaGame {
 
     goToHomeFromGame() {
         console.log(`🏠 Exiting game - returning to home`);
-        
+
         // Reset game state
         this.gameStarted = false;
-        
+
         // Hide game screen and show start screen
         if (this.gameScreen) this.gameScreen.classList.add('hidden');
         if (this.startScreen) this.startScreen.classList.remove('hidden');
@@ -312,59 +315,34 @@ class AuthentaGame {
         try {
             const response = await fetch('showcase-images.json');
             if (!response.ok) throw new Error('Failed to load showcase images');
-            
+
+
             const showcaseImages = await response.json();
-            
-            // Determine number of images based on screen size
-            let numberOfImages;
-            const screenWidth = window.innerWidth;
-            
-            if (screenWidth < 640) {
-                // Mobile: 20 images
-                numberOfImages = 20;
-            } else if (screenWidth < 1024) {
-                // Tablet: 40 images
-                numberOfImages = 30;
-            } else {
-                // Desktop: all images (65)
-                numberOfImages = showcaseImages.length;
-            }
-            
-            const shuffled = this.shuffleArray(showcaseImages);
-            const selectedImages = shuffled.slice(0, numberOfImages);
-            
+
+            // Remove duplicates
+            const uniqueImages = Array.from(new Set(showcaseImages));
+
+            const width = window.innerWidth;
+            let numberOfImages = 70;
+            if (width < 1024) numberOfImages = 50;
+            if (width < 768) numberOfImages = 30;
+            const selectedImages = uniqueImages.slice(0, numberOfImages);
+
             const showcaseGrid = document.getElementById('showcaseGrid');
             if (!showcaseGrid) return;
-            
             showcaseGrid.innerHTML = '';
-            
-            // Size classes for random sizing
-            const sizeClasses = ['size-small', 'size-medium', 'size-large', 'size-xlarge'];
-            
+            const sizeClasses = ['size-small', 'size-large', 'size-xlarge'];
             selectedImages.forEach(imagePath => {
                 const img = document.createElement('img');
-                img.src = imagePath;
+                img.src = `${imagePath}`;
                 img.alt = 'Sample image';
-                
                 // Randomly assign a size class
                 const randomSize = sizeClasses[Math.floor(Math.random() * sizeClasses.length)];
                 img.className = `showcase-image ${randomSize}`;
                 img.loading = 'lazy';
-                
-                // Add click event for extra wiggle on click
-                img.addEventListener('click', function() {
-                    this.style.animation = 'none';
-                    setTimeout(() => {
-                        this.style.animation = 'wiggle-hover 0.5s ease-in-out 3';
-                        setTimeout(() => {
-                            this.style.animation = 'wiggle-idle 3s ease-in-out infinite';
-                        }, 1500);
-                    }, 10);
-                });
-                
                 showcaseGrid.appendChild(img);
             });
-            
+
         } catch (err) {
             console.error('Error loading showcase images:', err);
         }

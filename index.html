@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="bg-white min-h-screen overflow-x-hidden">
+<body class="bg-white overflow-x-hidden">
     <!-- Splash Screen -->
     <div id="splashScreen" class="splash-phase-1">
         <div id="splashBg"></div>
@@ -25,17 +25,14 @@
         </div>
     </div>
 
-
-
-    <!-- Main Content -->
-    <div id="app" class="mx-auto overflow-x-hidden pt-0">
+    <!-- Main Content (hidden until splash is gone) -->
+    <div id="app" class="mx-auto overflow-x-hidden pt-0" style="display:none;">
         <!-- Start Screen -->
         <div id="startScreen" class="text-center">
             <div id="showcaseGrid" class="showcase-grid">
-                <!-- Images will be loaded here by JavaScript -->
             </div>
 
-            <div class="flex flex-col justify-center items-center gap-5 min-h-screen">
+            <div class="flex flex-col justify-center items-center gap-5 my-auto min-h-[70vh]">
                 <h1 class="text-5xl font-bold text-gray-800 my-6 sm:text-[5rem]">Can you tell AI from Real?</h1>
                 <p class="text-xl text-gray-600 mb-8 sm:text-[1.5rem]">Classify the images as Real or AI-generated.</p>
 
@@ -49,8 +46,8 @@
         <div id="gameScreen" class="hidden flex flex-col justify-center items-center min-h-screen">
             <!-- Home Button -->
             <button id="homeIconBtn"
-                class="fixed top-4 left-4 z-50 bg-white hover:bg-gray-100 text-gray-700 hover:text-purple-600 p-3 rounded-full shadow-lg transition-all duration-300 border border-gray-200">
-                <i class="fas fa-home text-2xl"></i>
+                class="fixed top-4 left-4 z-50 bg-white hover:bg-gray-100 text-gray-700 hover:text-purple-600 p-2 rounded-full shadow-lg w-10 h-10  transition-all duration-300 border border-gray-200">
+                <i class="fas fa-home"></i>
             </button>
 
             <div class="w-full max-w-4xl mx-auto">
@@ -67,10 +64,8 @@
                 <!-- Main Game Layout -->
                 <div class="flex justify-center">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <!-- Image Container -->
                         <div class="relative flex justify-center items-center w-full max-w-sm mx-auto">
                             <div id="imageContainer" class="flex items-center justify-center">
-                                <!-- Image will be inserted here -->
                             </div>
                             <div id="feedbackIndicator"
                                 class="absolute inset-0 flex flex-col items-center justify-center text-white text-4xl font-bold rounded-lg hidden">
@@ -137,6 +132,7 @@
         // Splash Screen Animation Controller
         document.addEventListener('DOMContentLoaded', () => {
             const splashScreen = document.getElementById('splashScreen');
+            const app = document.getElementById('app');
 
             // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
             setTimeout(() => {
@@ -150,9 +146,10 @@
                 splashScreen.classList.add('splash-fade-out');
             }, 3000);
 
-            // Remove splash screen from DOM after fade out completes
+            // Remove splash screen from DOM after fade out completes and show app
             setTimeout(() => {
                 splashScreen.style.display = 'none';
+                if (app) app.style.display = '';
             }, 3500);
         });
 

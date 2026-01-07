@@ -1,4 +1,20 @@
-/* Extracted styles from index.html */
+/* Crop game image to avoid Gemini logo */
+#imageContainer img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center 40%; /* ⬅️ moves image up */
+  border-radius: 1rem;
+  background: #fff;
+}
+
+@media (max-width: 640px) {
+  #imageContainer img {
+    height: 220px;
+    object-position: center 15%;
+  }
+}
+
 .glass-nav {
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
@@ -147,7 +163,6 @@ html {
   }
 }
 
-/* Phase 3: Fade out splash (after 3s) */
 .splash-fade-out {
   animation: splashFadeOut 0.5s ease-out forwards;
 }
@@ -164,23 +179,44 @@ html {
 }
 
 .showcase-image.size-small {
-  width: 25px;
-  height: 25px;
-}
-
-.showcase-image.size-medium {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
 }
 
 .showcase-image.size-large {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
 }
 
 .showcase-image.size-xlarge {
-  width: 75px;
-  height: 75px;
+  width: 70px;
+  height: 70px;
+}
+
+@media (max-width: 640px) {
+  .showcase-image.size-small {
+    width: 30px;
+    height: 30px;
+  }
+
+  .showcase-image.size-large {
+    width: 40px;
+    height: 40px;
+  }
+
+  .showcase-image.size-xlarge {
+    width: 60px;
+    height: 60px;
+  }
+
+  .showcase-grid {
+    gap: 6px 10px;
+    margin-left: 0;
+  }
+
+  .showcase-image {
+    margin: -8px; /* ⬅️ prevents stacking */
+  }
 }
 
 .showcase-image:hover {
@@ -211,6 +247,7 @@ html {
 
 .showcase-grid {
   display: flex;
+  flex-wrap: wrap;
   position: relative;
   gap: 0;
   top: 0;
@@ -231,7 +268,8 @@ html {
   cursor: pointer;
   animation: wiggle-idle 3s ease-in-out infinite;
   flex-shrink: 0;
-  margin: -16px;
+  margin: -14px; /* overlap horizontally */
+  margin-bottom: -10px;
   position: relative;
   z-index: 1;
 }
@@ -243,40 +281,6 @@ html {
   z-index: 100;
 }
 
-@media (max-width: 640px) {
-  .showcase-image.size-small {
-    width: 55px;
-    height: 55px;
-  }
-
-  .showcase-image.size-medium {
-    width: 70px;
-    height: 70px;
-  }
-
-  .showcase-image.size-large {
-    width: 85px;
-    height: 85px;
-  }
-
-  .showcase-image.size-xlarge {
-    width: 100px;
-    height: 100px;
-  }
-
-  .showcase-grid {
-    gap: 0;
-    padding: 0.25rem 0.5rem 0.75rem 0.5rem;
-    margin-bottom: 1rem;
-    margin-left: -16px;
-  }
-
-  .showcase-image {
-    margin: -14px;
-  }
-}
-
-/* Staggered animation delays */
 .showcase-image:nth-child(1) {
   animation-delay: 0s;
 }
