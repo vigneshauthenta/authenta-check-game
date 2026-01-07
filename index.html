@@ -63,80 +63,124 @@
             color: white;
         }
 
-        /* Splash Screen Styles */
-        #splashScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            overflow: hidden;
+        .showcase-image.size-small {
+            width: 75px;
+            height: 75px;
         }
 
-        #splashBg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
+        .showcase-image.size-medium {
+            width: 95px;
+            height: 95px;
         }
 
-        #splashContent {
-            position: relative;
-            z-index: 10;
-            text-align: center;
+        .showcase-image.size-large {
+            width: 115px;
+            height: 115px;
         }
 
-        #splashIcon {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
+        .showcase-image.size-xlarge {
+            width: 135px;
+            height: 135px;
         }
 
-        /* Phase 1: Icon centered (0-2s) */
-        .splash-phase-1 #splashIcon {
-            animation: none;
-            opacity: 1;
-            transform: scale(1);
+        .showcase-image:hover {
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            transform: scale(1.05);
         }
 
-        /* Phase 2: Expanding background transition (2-3s) */
-        .splash-phase-2 #splashBg {
-            animation: expandBg 1s ease-out forwards;
+        .showcase-image:active {
+            transform: scale(0.95);
         }
 
-        .splash-phase-2 #splashIcon {
-            animation: none;
-            opacity: 1;
-            transform: scale(1);
+        @keyframes wiggle-idle {
+            0%, 100% {
+                transform: rotate(0deg) translateY(0);
+            }
+            25% {
+                transform: rotate(1deg) translateY(-2px);
+            }
+            50% {
+                transform: rotate(0deg) translateY(0);
+            }
+            75% {
+                transform: rotate(-1deg) translateY(-2px);
+            }
         }
 
-        @keyframes expandBg {
-            from {
-                background-color: white;
-                clip-path: circle(0% at 50% 50%);
+        @keyframes wiggle-hover {
+            0%, 100% {
+                transform: rotate(0deg) scale(1.05);
+            }
+            10% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+            20% {
+                transform: rotate(5deg) scale(1.08);
             }
 
             to {
                 background-color: #1B0341;
                 clip-path: circle(150% at 50% 50%);
             }
+            40% {
+                transform: rotate(5deg) scale(1.08);
+            }
+            50% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+            60% {
+                transform: rotate(5deg) scale(1.08);
+            }
+            70% {
+                transform: rotate(-3deg) scale(1.06);
+            }
+            80% {
+                transform: rotate(3deg) scale(1.06);
+            }
+            90% {
+                transform: rotate(-1deg) scale(1.05);
+            }
         }
 
-        /* Phase 3: Fade out splash (after 3s) */
-        .splash-fade-out {
-            animation: splashFadeOut 0.5s ease-out forwards;
+        .showcase-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            max-width: 100%;
+            margin: 0 auto 3rem;
+            padding: 1rem 2rem;
+            height: auto;
+            overflow: hidden;
+            align-content: flex-start;
+            justify-content: center;
+            margin-left: -15px;
         }
 
-        @keyframes splashFadeOut {
-            from {
-                opacity: 1;
-                visibility: visible;
+        .showcase-image {
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+            cursor: pointer;
+            animation: wiggle-idle 3s ease-in-out infinite;
+            flex-shrink: 0;
+            margin: -12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .showcase-image:hover {
+            /* animation: wiggle-hover 0.5s ease-in-out infinite; */
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            z-index: 100;
+        }
+
+        @media (max-width: 640px) {
+            .showcase-image.size-small {
+                width: 55px;
+                height: 55px;
             }
 
             to {
