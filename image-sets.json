@@ -3,151 +3,451 @@
     {
       "id": 1,
       "images": [
-        { "path": "real/0.png", "type": "real" },
-        { "path": "fake/flash_pixart_41_0_test_1.png", "type": "ai" },
-        { "path": "real/1.png", "type": "real" },
-        { "path": "fake/nano-banana-5.png", "type": "ai" },
-        { "path": "real/2.png", "type": "real" },
-        { "path": "fake/00000019.jpg", "type": "ai" },
-        { "path": "real/00000001.jpg", "type": "real" },
-        { "path": "fake/r0a2ff882t.png", "type": "ai" },
-        { "path": "real/drawings-1601_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/generated_image_21.png", "type": "ai" }
+        {
+          "path": "set-1/image-1.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-10.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-11.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-1.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-10.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-11.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-12.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-13.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-14.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-15.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 2,
       "images": [
-        { "path": "real/3.png", "type": "real" },
-        { "path": "fake/flash_pixart_43_0_test_1.png", "type": "ai" },
-        { "path": "real/4.png", "type": "real" },
-        { "path": "fake/nano-banana-6.png", "type": "ai" },
-        { "path": "real/5.png", "type": "real" },
-        { "path": "fake/00000036.jpg", "type": "ai" },
-        { "path": "real/00000002.jpg", "type": "real" },
-        { "path": "fake/r0b0e2ba5t.png", "type": "ai" },
-        { "path": "real/drawings-2051_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/generated_image_24.png", "type": "ai" }
+        {
+          "path": "set-1/image-12.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-13.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-14.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-16.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-17.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-18.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-19.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-2.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-20.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-21.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 3,
       "images": [
-        { "path": "real/6.png", "type": "real" },
-        { "path": "fake/flash_pixart_45_0_test_1.png", "type": "ai" },
-        { "path": "real/7.png", "type": "real" },
-        { "path": "fake/nano-banana-7.png", "type": "ai" },
-        { "path": "real/8.png", "type": "real" },
-        { "path": "fake/00000061.jpg", "type": "ai" },
-        { "path": "real/00000003.jpg", "type": "real" },
-        { "path": "fake/r0f38373ct.png", "type": "ai" },
-        { "path": "real/drawings-2200_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/r0ff7a848t.png", "type": "ai" }
+        {
+          "path": "set-1/image-15.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-16.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-17.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-22.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-23.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-24.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-25.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-26.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-27.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-28.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 4,
       "images": [
-        { "path": "real/9.png", "type": "real" },
-        { "path": "fake/flash_pixart_47_0_test_1.png", "type": "ai" },
-        { "path": "real/10.png", "type": "real" },
-        { "path": "fake/nano-banana-8.png", "type": "ai" },
-        { "path": "real/00000004.jpg", "type": "real" },
-        { "path": "fake/00000089.jpg", "type": "ai" },
-        { "path": "real/IMG20231102164721.jpg", "type": "real" },
-        { "path": "fake/0a0b9dce-1bf9-4458-9433-0c40ac80e77d.jpg", "type": "ai" },
-        { "path": "real/drawings-2211_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/0a0f85c6-0b92-4074-9eac-bc90bf78cc65.jpg", "type": "ai" }
+        {
+          "path": "set-1/image-18.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-19.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-2.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-29.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-3.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-30.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-31.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-32.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-33.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-34.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 5,
       "images": [
-        { "path": "real/00000005.jpg", "type": "real" },
-        { "path": "fake/flash_pixart_48_0_test_1.png", "type": "ai" },
-        { "path": "real/00000006.jpg", "type": "real" },
-        { "path": "fake/nano-banana-9.png", "type": "ai" },
-        { "path": "real/00000007.jpg", "type": "real" },
-        { "path": "fake/0a1a829c-c8ae-4598-a9c3-962d30ee6387.jpg", "type": "ai" },
-        { "path": "real/IMG20240113103121.jpg", "type": "real" },
-        { "path": "fake/0a1c0f86-5d3b-4020-b1b7-34ef075d86b8.jpg", "type": "ai" },
-        { "path": "real/drawings-2212_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/0a2c2890-e89b-456e-8ded-599eda9571e8.jpg", "type": "ai" }
+        {
+          "path": "set-1/image-20.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-21.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-22.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-35.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-36.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-37.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-38.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-39.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-4.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-40.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 6,
       "images": [
-        { "path": "real/00000008.jpg", "type": "real" },
-        { "path": "fake/flash_pixart_49_0_test_1.png", "type": "ai" },
-        { "path": "real/00000009.jpg", "type": "real" },
-        { "path": "fake/0a2cbf85-8b0d-47b0-9c5c-3a47480212fd.jpg", "type": "ai" },
-        { "path": "real/00000010.jpg", "type": "real" },
-        { "path": "fake/0a2eb072-d7b7-43df-8e22-56646f5e3d81.jpg", "type": "ai" },
-        { "path": "real/IMG20250603140555.jpg", "type": "real" },
-        { "path": "fake/0a2f3011-446f-4a89-84c2-4ac77d62361e.jpg", "type": "ai" },
-        { "path": "real/drawings-2260_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/0a3c6a6f-37ce-410d-96fb-c35e86d6903b.jpg", "type": "ai" }
+        {
+          "path": "set-1/image-23.png",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-24.png",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-25.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-41.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-42.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-43.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-44.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-45.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-46.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-47.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 7,
       "images": [
-        { "path": "real/00000011.jpg", "type": "real" },
-        { "path": "fake/0a3e297e-b33d-4f31-8bce-bf697e21b502.jpg", "type": "ai" },
-        { "path": "real/00a0f737f809420eafc234c267358f88.jpg", "type": "real" },
-        { "path": "fake/0a3f1360cd13425d88bc6cb7397384e7.jpg", "type": "ai" },
-        { "path": "real/00a1c6c39f034eb689aa830470acbcb2.jpg", "type": "real" },
-        { "path": "fake/0a4a3b2f-c2d8-491c-b61d-4096b4d42471.jpg", "type": "ai" },
-        { "path": "real/IMG20250606190643_01.jpg", "type": "real" },
-        { "path": "fake/0a4cda16-7035-47f6-9d43-178b49b5ab96.jpg", "type": "ai" },
-        { "path": "real/drawings-2266_mainfoto_05.jpg", "type": "real" },
-        { "path": "fake/0a4d8847-0561-4b62-b7e9-9d928eb2a23b.jpeg", "type": "ai" }
+        {
+          "path": "set-1/image-26.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-27.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-28.png",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-48.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-49.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-5.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-50.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-51.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-52.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-53.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 8,
       "images": [
-        { "path": "real/00a5a76bcc5f4ea8beaf2211ee3eabbd.jpg", "type": "real" },
-        { "path": "fake/0a4dcb15-6fe3-4a28-9821-ad8da7823f15.jpg", "type": "ai" },
-        { "path": "real/0a01b4f1f9244aa0875fe67346b44a35.jpg", "type": "real" },
-        { "path": "fake/0a4faf4f-68b5-46b6-948b-5f5b6d287f14.jpg", "type": "ai" },
-        { "path": "real/0a0cb4cf26d7426ca6ab81fe427bd922.jpg", "type": "real" },
-        { "path": "fake/0a56889e-e1f5-42fc-b115-10e669b48125.jpeg", "type": "ai" },
-        { "path": "real/0a0dc127ef784fff9e712eb2dc5d9aba.jpg", "type": "real" },
-        { "path": "fake/0a56dec4-4585-42f8-9e62-a627c25a9796.jpeg", "type": "ai" },
-        { "path": "real/0a0f49fd5af340628e76b5c96a734c49.jpg", "type": "real" },
-        { "path": "fake/0a83d96f19eb45fc8ba015be2ba16448.jpg", "type": "ai" }
+        {
+          "path": "set-1/image-29.png",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-3.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-30.png",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-54.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-55.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-56.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-57.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-58.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-59.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-6.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 9,
       "images": [
-        { "path": "real/0a1b67ddb84942a6a53a78e5783f8e0d.jpg", "type": "real" },
-        { "path": "fake/0a92a99b353744739d09e51480d1be00.jpg", "type": "ai" },
-        { "path": "real/0a1c53c109c641fa94b989ccd7b64f93.jpg", "type": "real" },
-        { "path": "fake/0ac7ba91-e26b-4ab9-80f0-20f38fea73cb.jpeg", "type": "ai" },
-        { "path": "real/0a1c97e336d347d4b641698acaa03a5e.jpg", "type": "real" },
-        { "path": "fake/0c74035f-27ba-4051-95b3-d16bf306b61c.jpeg", "type": "ai" },
-        { "path": "real/0a1d62dc12c64a4c9c50ea824fb01b5b.jpg", "type": "real" },
-        { "path": "fake/0cd01d29-9b0f-4ea1-a2a3-c186cb97676e.jpeg", "type": "ai" },
-        { "path": "real/0a1d96d38ae240caab741a306267cc5f.jpg", "type": "real" },
-        { "path": "fake/0d05e6cc-15db-4e84-87e8-0a1dce92fd94.jpeg", "type": "ai" }
+        {
+          "path": "set-1/image-4.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-5.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-6.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-60.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-61.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-62.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-63.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-64.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-65.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-66.png",
+          "type": "set-2"
+        }
       ]
     },
     {
       "id": 10,
       "images": [
-        { "path": "real/0a1fcaba49394d56aac39fa5d76af165.jpg", "type": "real" },
-        { "path": "fake/0ec25488-8332-4615-8ede-826a3e018a1f.jpeg", "type": "ai" },
-        { "path": "real/0a2ae748d8a34521845227d2de6321f7.jpg", "type": "real" },
-        { "path": "fake/0ee226be-c724-4220-a15b-b3e368dac6fa.jpeg", "type": "ai" },
-        { "path": "real/0a2ba60e935c4d48a26fc4e48f138fac.jpg", "type": "real" },
-        { "path": "fake/1bfd0e29-d67f-4e64-80b9-c5059fa5cdfd.jpeg", "type": "ai" },
-        { "path": "real/0a2d8054348748db920342f5c601b703.jpg", "type": "real" },
-        { "path": "fake/1f7b983bd1d646d1ad4534a1a23ed376.jpg", "type": "ai" },
-        { "path": "real/0a2e79c6dda444bd9290072044289f98.jpg", "type": "real" },
-        { "path": "fake/1f7e45ae5acb45a4a4b439ad1698fd92.jpg", "type": "ai" }
+        {
+          "path": "set-1/image-7.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-8.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-1/image-9.jpg",
+          "type": "set-1"
+        },
+        {
+          "path": "set-2/image-67.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-68.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-69.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-7.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-70.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-8.png",
+          "type": "set-2"
+        },
+        {
+          "path": "set-2/image-9.png",
+          "type": "set-2"
+        }
       ]
     }
   ]

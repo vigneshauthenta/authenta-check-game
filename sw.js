@@ -4,16 +4,18 @@ const urlsToCache = [
     '/',
     'index.html',
     'script.js',
+    'style.css',
     'manifest.json',
-    'fake.json',
-    'real.json',
+    'set-1-images.json',
+    'set-2-images.json',
+    'showase-images.json',
+    'image-sets.json',
     'public/favicon.png',
-    'public/authenta_gradient.png',
+    'public/logo.png',
     'https://cdn.tailwindcss.com',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
-// Install the service worker and cache the app shell.
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
