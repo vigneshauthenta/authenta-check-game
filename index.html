@@ -326,16 +326,28 @@
 
     <script src="script.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Use a relative path
-                navigator.serviceWorker.register('sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
+        // Splash Screen Animation Controller
+        document.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splashScreen');
+
+            // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
+            setTimeout(() => {
+                // Phase 2: Transition background and fade icon (2-3 seconds)
+                splashScreen.classList.remove('splash-phase-1');
+                splashScreen.classList.add('splash-phase-2');
+            }, 2000);
+
+            // Phase 3: Fade out splash screen after 3 seconds
+            setTimeout(() => {
+                splashScreen.classList.add('splash-fade-out');
+            }, 3000);
+
+            // Remove splash screen from DOM after fade out completes
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 3500);
+        });
+
     </script>
 </body>
 
