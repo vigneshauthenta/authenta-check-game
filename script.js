@@ -57,7 +57,7 @@ class AuthentaGame {
                 this.startBtn.disabled = false;
             }
         } catch (err) {
-            console.error("❌ Error loading image sets:", err);
+
         }
     }
 
@@ -74,7 +74,6 @@ class AuthentaGame {
 
     prepareImages() {
         if (!this.imageSets || this.imageSets.length === 0) {
-            console.error("No image sets available");
             return;
         }
 
@@ -82,7 +81,6 @@ class AuthentaGame {
         const currentSet = this.imageSets[this.currentSetIndex];
 
         if (!currentSet) {
-            console.error(`Set at index ${this.currentSetIndex} not found`);
             return;
         }
 
@@ -113,14 +111,12 @@ class AuthentaGame {
     startGame() {
         // Ensure images are loaded before starting
         if (!this.images || this.images.length === 0) {
-            console.warn("Images not ready yet, waiting...");
             setTimeout(() => this.startGame(), 100);
             return;
         }
 
         // Ensure DOM elements are ready
         if (!this.startScreen || !this.gameScreen || !this.endScreen) {
-            console.warn("DOM elements not ready yet, waiting...");
             setTimeout(() => this.startGame(), 100);
             return;
         }
@@ -149,15 +145,12 @@ class AuthentaGame {
         const currentImage = this.images[this.currentImageIndex];
 
         if (!currentImage) {
-            console.error(`No image data at index ${this.currentImageIndex}`);
             return;
         }
 
-        console.log(`Displaying image ${this.currentImageIndex + 1}/${this.images.length}: ${currentImage.path}`);
 
         // Ensure imageContainer exists
         if (!this.imageContainer) {
-            console.error('Image container not found!');
             return;
         }
 
@@ -184,12 +177,10 @@ class AuthentaGame {
         img.style.transition = 'opacity 0.3s ease-in';
 
         img.onload = () => {
-            console.log(`✅ Image loaded: ${imagePath}`);
             img.style.opacity = '1';
         };
 
         img.onerror = (error) => {
-            console.error(`❌ Failed to load image: ${imagePath}`, error);
             img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100%25" height="100%25" fill="%23ddd"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
             img.style.opacity = '1';
         };
@@ -242,7 +233,6 @@ class AuthentaGame {
     }
 
     endGame() {
-        console.log('🏁 Game ending...');
 
         if (this.gameScreen) this.gameScreen.classList.add('hidden');
         if (this.endScreen) this.endScreen.classList.remove('hidden');
@@ -254,7 +244,6 @@ class AuthentaGame {
         if (this.finalScore) this.finalScore.textContent = `${this.score}/${totalImages}`;
         if (this.scorePercentage) this.scorePercentage.textContent = `${percentage}%`;
 
-        console.log(`📊 Final Score: ${this.score}/${totalImages} (${percentage}%)`);
 
         // Move to next set for next game
         this.moveToNextSet();
@@ -267,20 +256,13 @@ class AuthentaGame {
 
         // Save to localStorage
         localStorage.setItem('currentSetIndex', this.currentSetIndex.toString());
-
-        console.log(`✅ Set Changed: Set ${previousSet} → Set ${this.currentSetIndex + 1}`);
-        console.log(`💾 Saved to localStorage: ${this.currentSetIndex}`);
-        console.log(`📌 Next game will use Set ${this.currentSetIndex + 1}`);
+ 
 
         // Verify it was saved
-        const verified = localStorage.getItem('currentSetIndex');
-        console.log(`✔️ Verification - localStorage now contains: ${verified}`);
+        const verified = localStorage.getItem('currentSetIndex'); 
     }
 
     resetGame() {
-        console.log(`🔄 Resetting game with Set ${this.currentSetIndex + 1}`);
-
-        // Prepare the new set (currentSetIndex was already incremented in endGame)
         this.prepareImages();
 
         // Hide end screen and start new game
@@ -289,7 +271,6 @@ class AuthentaGame {
     }
 
     goToHome() {
-        console.log(`🏠 Going home - Set ${this.currentSetIndex + 1} ready for next game`);
 
         // Prepare images for next game (uses current set index)
         this.prepareImages();
@@ -300,9 +281,6 @@ class AuthentaGame {
     }
 
     goToHomeFromGame() {
-        console.log(`🏠 Exiting game - returning to home`);
-
-        // Reset game state
         this.gameStarted = false;
 
         // Hide game screen and show start screen
