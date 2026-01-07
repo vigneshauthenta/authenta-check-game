@@ -118,8 +118,10 @@
             20% {
                 transform: rotate(5deg) scale(1.08);
             }
-            30% {
-                transform: rotate(-5deg) scale(1.08);
+
+            to {
+                background-color: #1B0341;
+                clip-path: circle(150% at 50% 50%);
             }
             40% {
                 transform: rotate(5deg) scale(1.08);
@@ -136,6 +138,146 @@
             80% {
                 transform: rotate(3deg) scale(1.06);
             }
+            90% {
+                transform: rotate(-1deg) scale(1.05);
+            }
+        }
+
+        .showcase-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            max-width: 100%;
+            margin: 0 auto 3rem;
+            padding: 1rem 2rem;
+            height: auto;
+            overflow: hidden;
+            align-content: flex-start;
+            justify-content: center;
+            margin-left: -15px;
+        }
+
+        .showcase-image {
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+            cursor: pointer;
+            animation: wiggle-idle 3s ease-in-out infinite;
+            flex-shrink: 0;
+            margin: -12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .showcase-image:hover {
+            /* animation: wiggle-hover 0.5s ease-in-out infinite; */
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            z-index: 100;
+        }
+
+        @media (max-width: 640px) {
+            .showcase-image.size-small {
+                width: 55px;
+                height: 55px;
+            }
+
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .showcase-image.size-small {
+            width: 75px;
+            height: 75px;
+        }
+
+        .showcase-image.size-medium {
+            width: 95px;
+            height: 95px;
+        }
+
+        .showcase-image.size-large {
+            width: 115px;
+            height: 115px;
+        }
+
+        .showcase-image.size-xlarge {
+            width: 135px;
+            height: 135px;
+        }
+
+        .showcase-image:hover {
+            border-color: rgba(139, 92, 246, 0.8);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            transform: scale(1.05);
+        }
+
+        .showcase-image:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes wiggle-idle {
+
+            0%,
+            100% {
+                transform: rotate(0deg) translateY(0);
+            }
+
+            25% {
+                transform: rotate(1deg) translateY(-2px);
+            }
+
+            50% {
+                transform: rotate(0deg) translateY(0);
+            }
+
+            75% {
+                transform: rotate(-1deg) translateY(-2px);
+            }
+        }
+
+        @keyframes wiggle-hover {
+
+            0%,
+            100% {
+                transform: rotate(0deg) scale(1.05);
+            }
+
+            10% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+
+            20% {
+                transform: rotate(5deg) scale(1.08);
+            }
+
+            30% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+
+            40% {
+                transform: rotate(5deg) scale(1.08);
+            }
+
+            50% {
+                transform: rotate(-5deg) scale(1.08);
+            }
+
+            60% {
+                transform: rotate(5deg) scale(1.08);
+            }
+
+            70% {
+                transform: rotate(-3deg) scale(1.06);
+            }
+
+            80% {
+                transform: rotate(3deg) scale(1.06);
+            }
+
             90% {
                 transform: rotate(-1deg) scale(1.05);
             }
@@ -202,153 +344,196 @@
                 margin-bottom: 2rem;
                 margin-left: -12px;
             }
-            
+
             .showcase-image {
                 margin: -10px;
             }
         }
+
         /* Staggered animation delays */
-        .showcase-image:nth-child(1) { animation-delay: 0s; }
-        .showcase-image:nth-child(2) { animation-delay: 0.1s; }
-        .showcase-image:nth-child(3) { animation-delay: 0.2s; }
-        .showcase-image:nth-child(4) { animation-delay: 0.3s; }
-        .showcase-image:nth-child(5) { animation-delay: 0.4s; }
-        .showcase-image:nth-child(6) { animation-delay: 0.5s; }
-        .showcase-image:nth-child(7) { animation-delay: 0.6s; }
-        .showcase-image:nth-child(8) { animation-delay: 0.7s; }
-        .showcase-image:nth-child(9) { animation-delay: 0.8s; }
-        .showcase-image:nth-child(10) { animation-delay: 0.9s; }
-        .showcase-image:nth-child(11) { animation-delay: 1s; }    </style>
+        .showcase-image:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .showcase-image:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .showcase-image:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .showcase-image:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .showcase-image:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .showcase-image:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .showcase-image:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .showcase-image:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+
+        .showcase-image:nth-child(9) {
+            animation-delay: 0.8s;
+        }
+
+        .showcase-image:nth-child(10) {
+            animation-delay: 0.9s;
+        }
+
+        .showcase-image:nth-child(11) {
+            animation-delay: 1s;
+        }
+    </style>
+
 </head>
 
-<body class="bg-white min-h-screen overflow-x-hidden">
-
-
-    <!-- Main Content -->
-    <div id="app" class="container mx-auto overflow-x-hidden">
-        <!-- Start Screen -->
-        <div id="startScreen" class="text-center">
-            <div id="showcaseGrid" class="showcase-grid">
-                <!-- Images will be loaded here by JavaScript -->
-            </div>
-
-            <h1 class="text-5xl font-bold text-gray-800 mb-6 sm:text-[5rem] mt-8">Can you tell AI from Real?</h1>
-            <p class="text-xl text-gray-600 mb-8 sm:text-[1.5rem]">Classify the images as Real or AI-generated.</p>
-
-            <!-- Showcase Image Grid -->
-
-
-            <button id="startBtn"
-                class="bg-purple-600 md: hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
-                Start Now
-            </button>
+<body class=" flex flex-col justify-center items-center bg-white min-h-screen overflow-x-hidden">
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-phase-1">
+        <div id="splashBg"></div>
+        <div id="splashContent">
+            <img id="splashIcon" src="./public/favicon.png" alt="Authenta">
         </div>
+    </div>
+ 
 
-        <div id="gameScreen" class="hidden">
-            <div class="w-full max-w-4xl mx-auto">
-                <div class="mb-4 flex flex-col items-center">
-                    <div class="bg-gray-200 rounded-full h-2 mb-2 w-full max-w-md">
-                        <div id="progressBar" class="bg-purple-700 h-2 rounded-full transition-all duration-300"
-                            style="width: 0%"></div>
-                    </div>
-                    <p class="text-gray-800 text-center">
-                        <span id="currentImage">1</span> / <span id="totalImages">10</span>
-                    </p>
+
+        <!-- Main Content -->
+        <div id="app" class="container mx-auto overflow-x-hidden">
+            <!-- Start Screen -->
+            <div id="startScreen" class="text-center">
+                <div id="showcaseGrid" class="showcase-grid">
+                    <!-- Images will be loaded here by JavaScript -->
                 </div>
 
-                <!-- Main Game Layout -->
-                <div class="flex justify-center">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <!-- Image Container -->
-                        <div class="relative flex justify-center items-center w-full max-w-sm mx-auto">
-                            <div id="imageContainer" class="flex items-center justify-center">
-                                <!-- Image will be inserted here -->
+                <h1 class="text-5xl font-bold text-gray-800 mb-6 sm:text-[5rem] mt-8">Can you tell AI from Real?</h1>
+                <p class="text-xl text-gray-600 mb-8 sm:text-[1.5rem]">Classify the images as Real or AI-generated.</p>
+
+                <!-- Showcase Image Grid -->
+
+
+                <button id="startBtn"
+                    class="bg-purple-600 md: hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
+                    Start Now
+                </button>
+            </div>
+
+            <div id="gameScreen" class="hidden">
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="mb-4 flex flex-col items-center">
+                        <div class="bg-gray-200 rounded-full h-2 mb-2 w-full max-w-md">
+                            <div id="progressBar" class="bg-purple-700 h-2 rounded-full transition-all duration-300"
+                                style="width: 0%"></div>
+                        </div>
+                        <p class="text-gray-800 text-center">
+                            <span id="currentImage">1</span> / <span id="totalImages">10</span>
+                        </p>
+                    </div>
+
+                    <!-- Main Game Layout -->
+                    <div class="flex justify-center">
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <!-- Image Container -->
+                            <div class="relative flex justify-center items-center w-full max-w-sm mx-auto">
+                                <div id="imageContainer" class="flex items-center justify-center">
+                                    <!-- Image will be inserted here -->
+                                </div>
+                                <div id="feedbackIndicator"
+                                    class="absolute inset-0 flex flex-col items-center justify-center text-white text-4xl font-bold rounded-lg hidden">
+                                    <i id="feedbackIcon" class="text-6xl mb-2"></i>
+                                    <span id="feedbackText"></span>
+                                </div>
                             </div>
-                            <div id="feedbackIndicator"
-                                class="absolute inset-0 flex flex-col items-center justify-center text-white text-4xl font-bold rounded-lg hidden">
-                                <i id="feedbackIcon" class="text-6xl mb-2"></i>
-                                <span id="feedbackText"></span>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col items-center justify-center space-y-2">
+                                <button id="realBtn"
+                                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl transition-colors w-48">
+                                    REAL
+                                </button>
+                                <button id="aiBtn"
+                                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full text-2xl transition-colors w-48">
+                                    AI
+                                </button>
                             </div>
                         </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex flex-col items-center justify-center space-y-2">
-                            <button id="realBtn"
-                                class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl transition-colors w-48">
-                                REAL
-                            </button>
-                            <button id="aiBtn"
-                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full text-2xl transition-colors w-48">
-                                AI
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
+        </div>
 
-    <!-- End Screen -->
-    <div id="endScreen" class="hidden text-center">
-        <h2 class="text-4xl font-bold text-gray-800 mb-6">Game Complete!</h2>
-        <div class="bg-gray-100 bg-opacity-80 rounded-3xl p-8 mb-6 max-w-lg mx-auto border border-gray-200">
-            <div class="flex justify-around items-center">
-                <!-- Authenta's Score Column -->
-                <div class="text-center px-4">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">Authenta's Accuracy</h3>
-                    <div class="text-6xl font-bold text-purple-600">94%</div>
-                </div>
+        <!-- End Screen -->
+        <div id="endScreen" class="hidden text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6">Game Complete!</h2>
+            <div class="bg-gray-100 bg-opacity-80 rounded-3xl p-8 mb-6 max-w-lg mx-auto border border-gray-200">
+                <div class="flex justify-around items-center">
+                    <!-- Authenta's Score Column -->
+                    <div class="text-center px-4">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-2">Authenta's Accuracy</h3>
+                        <div class="text-6xl font-bold text-purple-600">94%</div>
+                    </div>
 
-                <!-- Divider -->
-                <div class="w-px h-24 bg-gray-300"></div>
+                    <!-- Divider -->
+                    <div class="w-px h-24 bg-gray-300"></div>
 
-                <!-- Your Score Column -->
-                <div class="text-center px-4">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">Your Score</h3>
-                    <div class="text-6xl font-bold text-gray-800" id="scorePercentage">0%</div>
-                    <div class="text-lg text-gray-500 mt-2" id="finalScore">0/10</div>
+                    <!-- Your Score Column -->
+                    <div class="text-center px-4">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-2">Your Score</h3>
+                        <div class="text-6xl font-bold text-gray-800" id="scorePercentage">0%</div>
+                        <div class="text-lg text-gray-500 mt-2" id="finalScore">0/10</div>
+                    </div>
                 </div>
             </div>
+            <div class="flex justify-center items-center space-x-4 mt-8">
+                <button id="playAgainBtn"
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
+                    Play Again
+                </button>
+                <button id="homeBtn"
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full border-2 border-gray-400 text-xl transition-colors">
+                    Go to Home
+                </button>
+            </div>
         </div>
-        <div class="flex justify-center items-center space-x-4 mt-8">
-            <button id="playAgainBtn"
-                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
-                Play Again
-            </button>
-            <button id="homeBtn"
-                class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full border-2 border-gray-400 text-xl transition-colors">
-                Go to Home
-            </button>
         </div>
-    </div>
-    </div>
 
-    <script src="script.js"></script>
-    <script>
-        // Splash Screen Animation Controller
-        document.addEventListener('DOMContentLoaded', () => {
-            const splashScreen = document.getElementById('splashScreen');
+        <script src="script.js"></script>
+        <script>
+            // Splash Screen Animation Controller
+            document.addEventListener('DOMContentLoaded', () => {
+                const splashScreen = document.getElementById('splashScreen');
 
-            // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
-            setTimeout(() => {
-                // Phase 2: Transition background and fade icon (2-3 seconds)
-                splashScreen.classList.remove('splash-phase-1');
-                splashScreen.classList.add('splash-phase-2');
-            }, 2000);
+                // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
+                setTimeout(() => {
+                    // Phase 2: Transition background and fade icon (2-3 seconds)
+                    splashScreen.classList.remove('splash-phase-1');
+                    splashScreen.classList.add('splash-phase-2');
+                }, 2000);
 
-            // Phase 3: Fade out splash screen after 3 seconds
-            setTimeout(() => {
-                splashScreen.classList.add('splash-fade-out');
-            }, 3000);
+                // Phase 3: Fade out splash screen after 3 seconds
+                setTimeout(() => {
+                    splashScreen.classList.add('splash-fade-out');
+                }, 3000);
 
-            // Remove splash screen from DOM after fade out completes
-            setTimeout(() => {
-                splashScreen.style.display = 'none';
-            }, 3500);
-        });
+                // Remove splash screen from DOM after fade out completes
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                }, 3500);
+            });
 
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>
