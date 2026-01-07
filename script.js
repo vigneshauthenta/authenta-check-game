@@ -34,6 +34,7 @@ class AuthentaGame {
         this.feedbackIndicator = document.getElementById('feedbackIndicator');
         this.feedbackIcon = document.getElementById('feedbackIcon');
         this.feedbackText = document.getElementById('feedbackText');
+        this.homeIconBtn = document.getElementById('homeIconBtn');
     }
 
     
@@ -64,6 +65,9 @@ class AuthentaGame {
         this.startBtn.addEventListener('click', () => this.startGame());
         this.playAgainBtn.addEventListener('click', () => this.resetGame());
         this.homeBtn.addEventListener('click', () => this.goToHome());
+        if (this.homeIconBtn) {
+            this.homeIconBtn.addEventListener('click', () => this.goToHomeFromGame());
+        }
         this.realBtn.addEventListener('click', () => this.classifyImage('real'));
         this.aiBtn.addEventListener('click', () => this.classifyImage('ai'));
     }
@@ -292,6 +296,18 @@ class AuthentaGame {
         if (this.mainNav) this.mainNav.classList.remove('hidden');
     }
 
+    goToHomeFromGame() {
+        console.log(`🏠 Exiting game - returning to home`);
+        
+        // Reset game state
+        this.gameStarted = false;
+        
+        // Hide game screen and show start screen
+        if (this.gameScreen) this.gameScreen.classList.add('hidden');
+        if (this.startScreen) this.startScreen.classList.remove('hidden');
+        if (this.mainNav) this.mainNav.classList.remove('hidden');
+    }
+
     async loadShowcaseImages() {
         try {
             const response = await fetch('showcase-images.json');
@@ -299,9 +315,23 @@ class AuthentaGame {
             
             const showcaseImages = await response.json();
             
-            // Use all available images for a fuller showcase
+            // Determine number of images based on screen size
+            let numberOfImages;
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth < 640) {
+                // Mobile: 20 images
+                numberOfImages = 20;
+            } else if (screenWidth < 1024) {
+                // Tablet: 40 images
+                numberOfImages = 30;
+            } else {
+                // Desktop: all images (65)
+                numberOfImages = showcaseImages.length;
+            }
+            
             const shuffled = this.shuffleArray(showcaseImages);
-            const selectedImages = shuffled;
+            const selectedImages = shuffled.slice(0, numberOfImages);
             
             const showcaseGrid = document.getElementById('showcaseGrid');
             if (!showcaseGrid) return;
