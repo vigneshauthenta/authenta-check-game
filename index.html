@@ -62,10 +62,98 @@
             background-color: rgba(239, 68, 68, 0.7);
             color: white;
         }
+
+        /* Splash Screen Styles */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #splashBg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+
+        #splashContent {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        #splashIcon {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+
+        /* Phase 1: Icon centered (0-2s) */
+        .splash-phase-1 #splashIcon {
+            animation: none;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Phase 2: Expanding background transition (2-3s) */
+        .splash-phase-2 #splashBg {
+            animation: expandBg 1s ease-out forwards;
+        }
+
+        .splash-phase-2 #splashIcon {
+            animation: none;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes expandBg {
+            from {
+                background-color: white;
+                clip-path: circle(0% at 50% 50%);
+            }
+            to {
+                background-color: #1B0341;
+                clip-path: circle(150% at 50% 50%);
+            }
+        }
+
+        /* Phase 3: Fade out splash (after 3s) */
+        .splash-fade-out {
+            animation: splashFadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes splashFadeOut {
+            from {
+                opacity: 1;
+                visibility: visible;
+            }
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
     </style>
 </head>
 
 <body class=" flex flex-col justify-center items-center bg-white min-h-screen overflow-x-hidden">
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-phase-1">
+        <div id="splashBg"></div>
+        <div id="splashContent">
+            <img id="splashIcon" src="./public/favicon.png" alt="Authenta">
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav id="mainNav"
         class="glass-nav rounded-full mx-auto mt-4 px-4 flex items-center justify-center space-x-4 max-w-fit">
@@ -171,16 +259,28 @@
 
     <script src="script.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Use a relative path
-                navigator.serviceWorker.register('sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                }, err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
+        // Splash Screen Animation Controller
+        document.addEventListener('DOMContentLoaded', () => {
+            const splashScreen = document.getElementById('splashScreen');
+
+            // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
+            setTimeout(() => {
+                // Phase 2: Transition background and fade icon (2-3 seconds)
+                splashScreen.classList.remove('splash-phase-1');
+                splashScreen.classList.add('splash-phase-2');
+            }, 2000);
+
+            // Phase 3: Fade out splash screen after 3 seconds
+            setTimeout(() => {
+                splashScreen.classList.add('splash-fade-out');
+            }, 3000);
+
+            // Remove splash screen from DOM after fade out completes
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 3500);
+        });
+
     </script>
 </body>
 
