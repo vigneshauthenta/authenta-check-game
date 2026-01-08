@@ -25,6 +25,13 @@
 </head>
 
 <body class="bg-white overflow-x-hidden">
+    <!-- PWA Install Toast -->
+    <div id="pwaToast" class="pwa-toast">
+        <span>📱 Install this app for offline access!</span>
+        <button id="installPwa">Install</button>
+        <button class="close" id="closeToast">&times;</button>
+    </div>
+
     <!-- Splash Screen -->
     <div id="splashScreen" class="splash-phase-1">
         <div id="splashBg"></div>
@@ -137,42 +144,69 @@
 
     <script src="script.js"></script>
     <script>
-        // Splash Screen Animation Controller
         document.addEventListener('DOMContentLoaded', () => {
             const splashScreen = document.getElementById('splashScreen');
             const app = document.getElementById('app');
 
-            // Phase 1: Show icon for 2 seconds (splash-phase-1 is already applied)
             setTimeout(() => {
-                // Phase 2: Transition background and fade icon (2-3 seconds)
                 splashScreen.classList.remove('splash-phase-1');
                 splashScreen.classList.add('splash-phase-2');
             }, 2000);
 
-            // Phase 3: Fade out splash screen after 3 seconds
             setTimeout(() => {
                 splashScreen.classList.add('splash-fade-out');
             }, 3000);
 
-            // Remove splash screen from DOM after fade out completes and show app
             setTimeout(() => {
                 splashScreen.style.display = 'none';
                 if (app) app.style.display = '';
             }, 3500);
         });
 
-        // Register service worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then((registration) => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     })
                     .catch((error) => {
-                        console.log('ServiceWorker registration failed: ', error);
                     });
             });
         }
+
+        // PWA Install Toast
+        let deferredPrompt;
+        const pwaToast = document.getElementById('pwaToast');
+        const installBtn = document.getElementById('installPwa');
+        const closeBtn = document.getElementById('closeToast');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show toast if not dismissed
+            if (!localStorage.getItem('pwaToastDismissed')) {
+                pwaToast.classList.add('show');
+            }
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                pwaToast.classList.remove('show');
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            pwaToast.classList.remove('show');
+            localStorage.setItem('pwaToastDismissed', 'true');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            pwaToast.classList.remove('show');
+            localStorage.setItem('pwaToastDismissed', 'true');
+        });
 
     </script>
 </body>
