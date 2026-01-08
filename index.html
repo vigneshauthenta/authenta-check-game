@@ -25,7 +25,6 @@
     <div id="pwaToast" class="pwa-toast">
         <span>Install this app for offline access</span>
         <button id="installPwa">Install</button>
-        <button class="close" id="closeToast">&times;</button>
     </div>
 
     <!-- Splash Screen -->
@@ -168,39 +167,156 @@
             });
         }
 
-        // PWA Install Toast
+        // PWA Install Toast - Show only after images are cached
         let deferredPrompt;
+        let imagesReady = false;
         const pwaToast = document.getElementById('pwaToast');
         const installBtn = document.getElementById('installPwa');
-        const closeBtn = document.getElementById('closeToast');
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show toast if not dismissed
-            if (!localStorage.getItem('pwaToastDismissed')) {
+        console.log('🎯 PWA Install: Initializing...');
+
+        // Check if images are already cached
+        async function checkIfImagesAreCached() {
+            if ('caches' in window) {
+                try {
+                    const cacheNames = await caches.keys();
+                    console.log('📂 PWA Install: Available caches:', cacheNames);
+                    
+                    // Try to find the latest cache
+                    const targetCache = cacheNames.find(name => name.startsWith('authenta-check'));
+                    if (!targetCache) {
+                        console.log('ℹ️ PWA Install: No authenta-check cache found yet');
+                        return false;
+                    }
+                    
+                    const cache = await caches.open(targetCache);
+                    const keys = await cache.keys();
+                    const imageCount = keys.filter(req => 
+                        req.url.includes('/set-1/') || 
+                        req.url.includes('/set-2/') || 
+                        req.url.includes('/showcase/')
+                    ).length;
+                    
+                    console.log(`📦 PWA Install: Found ${imageCount} cached images in ${targetCache}`);
+                    
+                    if (imageCount > 50) { // If more than 50 images cached, consider it ready
+                        console.log(`✅ PWA Install: Cache ready with ${imageCount} images`);
+                        imagesReady = true;
+                        return true;
+                    }
+                } catch (error) {
+                    console.log('ℹ️ PWA Install: Could not check cache:', error);
+                }
+            }
+            return false;
+        }
+
+        // Check cache status on load
+        checkIfImagesAreCached().then(ready => {
+            if (ready && deferredPrompt && pwaToast) {
+                console.log('🎉 PWA Install: Showing toast (cache check passed)');
                 pwaToast.classList.add('show');
             }
         });
 
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                deferredPrompt = null;
-                pwaToast.classList.remove('show');
+        // Poll for cache readiness every 2 seconds if not ready yet
+        const cacheCheckInterval = setInterval(async () => {
+            if (!imagesReady) {
+                console.log('🔍 PWA Install: Polling cache status...');
+                const ready = await checkIfImagesAreCached();
+                if (ready && deferredPrompt && pwaToast) {
+                    console.log('🎉 PWA Install: Showing toast (polling detected ready)');
+                    pwaToast.classList.add('show');
+                    clearInterval(cacheCheckInterval);
+                }
+            } else {
+                clearInterval(cacheCheckInterval);
+            }
+        }, 2000);
+
+        // Listen for service worker messages
+        if ('serviceWorker' in navigator) {
+            console.log('✅ PWA Install: Service Worker supported');
+            
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                console.log('📨 PWA Install: Received message from SW:', event.data);
+                if (event.data && event.data.type === 'IMAGES_CACHED') {
+                    console.log(`📦 PWA Install: Images cached (${event.data.count}/${event.data.total})`);
+                    imagesReady = true;
+                    clearInterval(cacheCheckInterval);
+                    // If we already have the install prompt, show the toast now
+                    if (deferredPrompt && pwaToast) {
+                        console.log('🎉 PWA Install: Showing toast (images ready + prompt available)');
+                        pwaToast.classList.add('show');
+                    } else {
+                        console.log('⏳ PWA Install: Images ready, waiting for install prompt...');
+                    }
+                }
+            });
+            
+            // Also listen on the controller for messages
+            navigator.serviceWorker.ready.then(registration => {
+                console.log('✅ PWA Install: Service Worker is ready');
+            });
+        } else {
+            console.log('❌ PWA Install: Service Worker not supported');
+        }
+
+        window.addEventListener('beforeinstallprompt', async (e) => {
+            console.log('🔔 PWA Install: beforeinstallprompt event fired');
+            // Prevent the default browser install prompt
+            e.preventDefault();
+            // Store the event for later use
+            deferredPrompt = e;
+            
+            // Check cache if not already ready
+            if (!imagesReady) {
+                console.log('🔍 PWA Install: Checking cache status on prompt...');
+                await checkIfImagesAreCached();
+            }
+            
+            // Only show toast if images are ready
+            if (imagesReady && pwaToast) {
+                console.log('🎉 PWA Install: Showing toast (prompt + images ready)');
+                pwaToast.classList.add('show');
+            } else {
+                console.log(`⏳ PWA Install: Prompt available, waiting for images... (imagesReady: ${imagesReady})`);
             }
         });
 
-        closeBtn.addEventListener('click', () => {
-            pwaToast.classList.remove('show');
-            localStorage.setItem('pwaToastDismissed', 'true');
-        });
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                console.log('👆 PWA Install: Install button clicked');
+                if (!deferredPrompt) {
+                    console.log('❌ PWA Install: No deferred prompt available');
+                    return;
+                }
+                
+                console.log('📱 PWA Install: Showing browser install prompt...');
+                // Show the browser's install prompt
+                deferredPrompt.prompt();
+                
+                // Wait for the user's response
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`✅ PWA Install: User choice - ${outcome}`);
+                
+                // Hide toast after user responds (accepted or dismissed)
+                if (pwaToast) {
+                    pwaToast.classList.remove('show');
+                    console.log('👋 PWA Install: Toast hidden');
+                }
+                
+                // Clear the deferred prompt
+                deferredPrompt = null;
+            });
+        }
 
+        // Hide toast when app is successfully installed
         window.addEventListener('appinstalled', () => {
-            pwaToast.classList.remove('show');
-            localStorage.setItem('pwaToastDismissed', 'true');
+            console.log('🎊 PWA Install: App successfully installed!');
+            if (pwaToast) {
+                pwaToast.classList.remove('show');
+            }
         });
 
     </script>

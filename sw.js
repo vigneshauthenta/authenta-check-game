@@ -30,12 +30,14 @@ async function preloadImages() {
             const response = await fetch(setFile);
             if (response.ok) {
                 const images = await response.json();
-                allImages.push(...images)
+                allImages.push(...images);
             }
         } catch (error) {
             // Silently handle JSON loading errors
         }
     }
+    
+    return allImages;
 }
 
 self.addEventListener('install', event => {
@@ -43,19 +45,29 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
+                console.log('📦 SW: Caching core files...');
                 return cache.addAll(urlsToCache);
             })
             .then(async () => {
+                console.log('✅ SW: Core files cached');
                 // Preload all images after caching core files
                 const cache = await caches.open(CACHE_NAME);
                 const allImages = await preloadImages();
                 
+                console.log(`🖼️ SW: Starting image cache - ${allImages.length} images to download...`);
+                
                 // Cache images in batches to avoid overwhelming the browser
                 const batchSize = 5;
                 let cachedCount = 0;
+                const startTime = Date.now();
                 
                 for (let i = 0; i < allImages.length; i += batchSize) {
                     const batch = allImages.slice(i, i + batchSize);
+                    const batchNum = Math.floor(i / batchSize) + 1;
+                    const totalBatches = Math.ceil(allImages.length / batchSize);
+                    
+                    console.log(`📥 SW: Processing batch ${batchNum}/${totalBatches}...`);
+                    
                     await Promise.allSettled(
                         batch.map(async (imgPath) => {
                             try {
@@ -63,9 +75,12 @@ self.addEventListener('install', event => {
                                 if (response.ok) {
                                     await cache.put(imgPath, response);
                                     cachedCount++;
+                                    console.log(`  ✓ Cached (${cachedCount}/${allImages.length}): ${imgPath}`);
+                                } else {
+                                    console.warn(`  ✗ Failed (${response.status}): ${imgPath}`);
                                 }
                             } catch (error) {
-                                // Silently handle errors
+                                console.warn(`  ✗ Error: ${imgPath}`, error.message);
                             }
                         })
                     );
@@ -75,6 +90,19 @@ self.addEventListener('install', event => {
                         await new Promise(resolve => setTimeout(resolve, 100));
                     }
                 }
+                
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                console.log(`🎉 SW: Image caching complete! ${cachedCount}/${allImages.length} images cached in ${duration}s`);
+                
+                // Notify all clients that images are ready
+                const clients = await self.clients.matchAll();
+                clients.forEach(client => {
+                    client.postMessage({
+                        type: 'IMAGES_CACHED',
+                        count: cachedCount,
+                        total: allImages.length
+                    });
+                });
             })
     );
 });
