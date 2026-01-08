@@ -17,7 +17,7 @@ for filename in os.listdir(input_folder):
 
                 # For JPEG: compress to quality=60
                 if filename.lower().endswith(('.jpg', '.jpeg')):
-                    img.save(output_path, 'JPEG', quality=60, optimize=True)
+                    img.save(output_path, 'JPEG', quality=20, optimize=True)
                 # For PNG: compress and reduce quality
                 elif filename.lower().endswith('.png'):
                     img.save(output_path, 'PNG', optimize=True)
