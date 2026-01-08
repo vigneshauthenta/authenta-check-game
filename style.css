@@ -8,6 +8,24 @@
   background: #fff;
 }
 
+/* Ensure start screen is properly centered */
+#startScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+#startScreen .flex.flex-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 640px) {
   #imageContainer img {
     height: 220px;
@@ -323,4 +341,71 @@ html {
 
 .showcase-image:nth-child(11) {
   animation-delay: 1s;
+}
+
+/* Offline fallback styles */
+.offline-mode body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: #1f2937;
+}
+
+.offline-mode .bg-white { background-color: white; }
+.offline-mode .bg-gray-100 { background-color: #f3f4f6; }
+.offline-mode .bg-gray-200 { background-color: #e5e7eb; }
+.offline-mode .bg-gray-800 { background-color: #1f2937; }
+.offline-mode .bg-purple-700 { background-color: #7c3aed; }
+.offline-mode .bg-green-500 { background-color: #10b981; }
+.offline-mode .bg-red-500 { background-color: #ef4444; }
+
+.offline-mode .text-white { color: white; }
+.offline-mode .text-gray-600 { color: #6b7280; }
+.offline-mode .text-gray-700 { color: #374151; }
+.offline-mode .text-gray-800 { color: #1f2937; }
+
+.offline-mode .text-xl { font-size: 1.25rem; }
+.offline-mode .text-2xl { font-size: 1.5rem; }
+.offline-mode .text-4xl { font-size: 2.25rem; }
+.offline-mode .text-5xl { font-size: 3rem; }
+
+.offline-mode .font-bold { font-weight: 700; }
+.offline-mode .rounded-full { border-radius: 9999px; }
+.offline-mode .rounded-lg { border-radius: 0.5rem; }
+
+.offline-mode .p-2 { padding: 0.5rem; }
+.offline-mode .p-4 { padding: 1rem; }
+.offline-mode .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.offline-mode .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.offline-mode .px-8 { padding-left: 2rem; padding-right: 2rem; }
+
+.offline-mode .mb-2 { margin-bottom: 0.5rem; }
+.offline-mode .mb-4 { margin-bottom: 1rem; }
+.offline-mode .mb-6 { margin-bottom: 1.5rem; }
+.offline-mode .mb-8 { margin-bottom: 2rem; }
+
+.offline-mode .flex { display: flex; }
+.offline-mode .flex-col { flex-direction: column; }
+.offline-mode .items-center { align-items: center; }
+.offline-mode .justify-center { justify-content: center; }
+.offline-mode .text-center { text-align: center; }
+
+.offline-mode .hidden { display: none; }
+.offline-mode .w-full { width: 100%; }
+.offline-mode .max-w-sm { max-width: 24rem; }
+.offline-mode .max-w-lg { max-width: 32rem; }
+.offline-mode .max-w-4xl { max-width: 56rem; }
+.offline-mode .mx-auto { margin-left: auto; margin-right: auto; }
+
+.offline-mode button {
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  outline: none;
+}
+
+.offline-mode button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }

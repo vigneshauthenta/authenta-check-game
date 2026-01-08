@@ -5,14 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authenta Check</title>
+    <!-- Local lightweight Tailwind fallback so PWA looks styled offline -->
+    <link rel="stylesheet" href="./public/tw-fallback.css">
+    <script>
+        // Use a basic CSS reset and essential styles for offline mode
+        if (!navigator.onLine) {
+            document.documentElement.className += ' offline-mode';
+        }
+    </script>
+    <!-- Load Tailwind from CDN when online, fallback to basic styles when offline -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#8b5cf6" />
     <link rel="icon" type="image/png" href="./public/logo.png">
+    <!-- Load Font Awesome from CDN when online -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-           
-    </style>
 
 </head>
 
@@ -116,7 +124,7 @@
         </div>
         <div class="flex justify-center items-center space-x-4 mt-8">
             <button id="playAgainBtn"
-                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
+                class="gradient-glow-btn bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full border-2 border-purple-300 border-opacity-50 hover:border-opacity-75 text-xl transition-colors">
                 Play Again
             </button>
             <button id="homeBtn"
@@ -152,6 +160,19 @@
                 if (app) app.style.display = '';
             }, 3500);
         });
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
 
     </script>
 </body>
