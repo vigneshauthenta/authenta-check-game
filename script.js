@@ -104,7 +104,7 @@ class AuthentaGame {
     preloadImages() {
         this.images.forEach(imageData => {
             const img = new Image();
-            img.src = `data/${imageData.path}`;
+            img.src = imageData.path; // Path now includes data/ prefix
         });
     }
 

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'authenta-check-v6';
+const CACHE_NAME = 'authenta-check-v7';
 
 // Get all images dynamically during install
 const urlsToCache = [
@@ -16,7 +16,6 @@ const urlsToCache = [
     './public/logo.png'
 ];
 
-// Preload all images during install
 async function preloadImages() {
     const imageSets = [
         'showcase-images.json',
@@ -31,19 +30,12 @@ async function preloadImages() {
             const response = await fetch(setFile);
             if (response.ok) {
                 const images = await response.json();
-                // Add data/ prefix for set images
-                if (setFile.includes('set-') || setFile.includes('showcase')) {
-                    allImages.push(...images.map(img => `data/${img}`));
-                } else {
-                    allImages.push(...images);
-                }
+                allImages.push(...images)
             }
         } catch (error) {
             // Silently handle JSON loading errors
         }
     }
-    
-    return allImages;
 }
 
 self.addEventListener('install', event => {
