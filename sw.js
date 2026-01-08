@@ -51,17 +51,21 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
+                console.log('Caching core files...');
                 return cache.addAll(urlsToCache);
             })
             .then(async () => {
                 // Preload all images after caching core files
+                console.log('Starting image preload...');
                 const cache = await caches.open(CACHE_NAME);
                 const allImages = await preloadImages();
                 
-                console.log(`Preloading ${allImages.length} images...`);
+                console.log(`Preloading ${allImages.length} images for offline use...`);
                 
                 // Cache images in batches to avoid overwhelming the browser
-                const batchSize = 10;
+                const batchSize = 5; // Reduced for better stability
+                let cachedCount = 0;
+                
                 for (let i = 0; i < allImages.length; i += batchSize) {
                     const batch = allImages.slice(i, i + batchSize);
                     await Promise.allSettled(
@@ -70,15 +74,23 @@ self.addEventListener('install', event => {
                                 const response = await fetch(imgPath);
                                 if (response.ok) {
                                     await cache.put(imgPath, response);
+                                    cachedCount++;
+                                    console.log(`Cached: ${imgPath} (${cachedCount}/${allImages.length})`);
                                 }
                             } catch (error) {
                                 console.warn(`Failed to cache image: ${imgPath}`, error);
                             }
                         })
                     );
+                    
+                    // Small delay between batches to prevent overwhelming
+                    if (i + batchSize < allImages.length) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    }
                 }
                 
-                console.log('All images preloaded!');
+                console.log(`✅ All images preloaded! (${cachedCount}/${allImages.length} successful)`);
+                console.log('PWA is now fully offline-ready!');
             })
     );
 });

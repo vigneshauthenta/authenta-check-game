@@ -138,6 +138,16 @@ body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Ro
 /* Custom height utilities for centering */
 .min-h-\[70vh\] { min-height: 70vh; }
 
+/* Center the end screen */
+#endScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
 /* Custom responsive text sizes */
 @media (min-width: 640px) {
   .sm\:text-\[1\.5rem\] { font-size: 1.5rem; }
