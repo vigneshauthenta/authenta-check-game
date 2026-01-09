@@ -250,18 +250,17 @@ class AuthentaGame {
     }
 
     moveToNextSet() {
-        // Increment set index and loop back to 0 after set 10
         const previousSet = this.currentSetIndex + 1;
-        this.currentSetIndex = (this.currentSetIndex + 1) % 10;
-
+        if (this.imageSets && this.imageSets.length > 0) {
+            this.currentSetIndex = (this.currentSetIndex + 1) % this.imageSets.length;
+        } else {
+            this.currentSetIndex = 0;
+        }
         // Save to localStorage
         localStorage.setItem('currentSetIndex', this.currentSetIndex.toString());
- 
-
         // Verify it was saved
-        const verified = localStorage.getItem('currentSetIndex'); 
+        const verified = localStorage.getItem('currentSetIndex');
     }
-
     resetGame() {
         this.prepareImages();
 
