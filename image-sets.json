@@ -98,11 +98,11 @@
           "type": "set-1"
         },
         {
-          "path": "set-1/image-16.jpg",
+          "path": "set-1/image-4.jpg",
           "type": "set-1"
         },
         {
-          "path": "set-1/image-17.jpg",
+          "path": "set-1/image-5.jpg",
           "type": "set-1"
         },
         {
@@ -188,11 +188,11 @@
           "type": "set-1"
         },
         {
-          "path": "set-1/image-21.jpg",
+          "path": "set-1/image-26.jpg",
           "type": "set-1"
         },
         {
-          "path": "set-1/image-22.jpg",
+          "path": "set-1/image-27.jpg",
           "type": "set-1"
         },
         {
@@ -229,7 +229,7 @@
       "id": 6,
       "images": [
         {
-          "path": "set-1/image-23.png",
+          "path": "set-1/image-7.png",
           "type": "set-1"
         },
         {
@@ -274,52 +274,7 @@
       "id": 7,
       "images": [
         {
-          "path": "set-1/image-26.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-27.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-28.png",
-          "type": "set-1"
-        },
-        {
-          "path": "set-2/image-48.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-49.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-5.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-50.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-51.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-52.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-53.png",
-          "type": "set-2"
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "images": [
-        {
-          "path": "set-1/image-29.png",
+          "path": "set-1/image-8.png",
           "type": "set-1"
         },
         {
@@ -327,7 +282,7 @@
           "type": "set-1"
         },
         {
-          "path": "set-1/image-30.png",
+          "path": "set-1/image-9.png",
           "type": "set-1"
         },
         {
@@ -356,96 +311,6 @@
         },
         {
           "path": "set-2/image-6.png",
-          "type": "set-2"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "images": [
-        {
-          "path": "set-1/image-4.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-5.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-6.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-2/image-60.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-61.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-62.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-63.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-64.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-65.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-66.png",
-          "type": "set-2"
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "images": [
-        {
-          "path": "set-1/image-7.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-8.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-1/image-9.jpg",
-          "type": "set-1"
-        },
-        {
-          "path": "set-2/image-67.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-68.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-69.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-7.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-70.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-8.png",
-          "type": "set-2"
-        },
-        {
-          "path": "set-2/image-9.png",
           "type": "set-2"
         }
       ]

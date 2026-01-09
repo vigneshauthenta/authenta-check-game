@@ -94,15 +94,28 @@ self.addEventListener('install', event => {
                 const duration = ((Date.now() - startTime) / 1000).toFixed(2);
                 console.log(`🎉 SW: Image caching complete! ${cachedCount}/${allImages.length} images cached in ${duration}s`);
                 
-                // Notify all clients that images are ready
-                const clients = await self.clients.matchAll();
-                clients.forEach(client => {
-                    client.postMessage({
-                        type: 'IMAGES_CACHED',
-                        count: cachedCount,
-                        total: allImages.length
+                // Notify clients that caching process is complete (regardless of success rate)
+                if (allImages.length > 0) {
+                    const missedCount = allImages.length - cachedCount;
+                    if (missedCount > 0) {
+                        console.log(`⚠️ SW: ${missedCount} images not found/failed, but caching process complete`);
+                    } else {
+                        console.log(`✅ SW: All ${cachedCount} images successfully cached`);
+                    }
+                    
+                    console.log(`📢 SW: Notifying clients that caching is complete...`);
+                    // Notify all clients that caching process is done
+                    const clients = await self.clients.matchAll();
+                    clients.forEach(client => {
+                        client.postMessage({
+                            type: 'IMAGES_CACHED',
+                            count: cachedCount,
+                            total: allImages.length,
+                            missed: missedCount,
+                            cachingComplete: true
+                        });
                     });
-                });
+                }
             })
     );
 });
